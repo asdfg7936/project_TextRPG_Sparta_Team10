@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+//몬스터 클래스
 class Monster {
 protected:
     std::string name;
