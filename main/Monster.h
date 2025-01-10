@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+//몬스터 클래스
 class Monster {
 protected:
     std::string name;
@@ -9,7 +10,7 @@ protected:
     int exp;
 
 public:
-    Monster(std::string name, int health, int attack);
+    Monster(std::string name, int health, int attack, int exp);
     virtual ~Monster() {}
 
     virtual std::string GetName() const = 0;
