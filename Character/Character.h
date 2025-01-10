@@ -17,6 +17,9 @@ private:
 
     Character(string name);
 
+    Character(const Character&) = delete;
+    Character& operator = (const Character&) = delete;
+
 public:
     static Character* getInstance(string name = "");
     void displayStatus();
