@@ -1,4 +1,4 @@
-# Spart Team 10's Project 
+# Sparta Team 10's Project 
 
 ### 📌Topic
 
