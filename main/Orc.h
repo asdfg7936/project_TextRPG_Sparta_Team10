@@ -11,4 +11,3 @@ public:
 	int GetExp() const override { return exp; }
 	void TakeDamage(int damage) override;
 };
-// ¾Æ¾Æ
