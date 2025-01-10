@@ -2,7 +2,9 @@
 
 ### 📌Topic
 
-**Text RPG Team Project**
+팀원과 협업하여 Text RPG 를 제작해 보자!
+
+<img src="/img/readme_img.png" width="400">
 
 ### 📌팀 구성 및 역할
 
