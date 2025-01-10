@@ -3,13 +3,17 @@
 
 HealthPotion::HealthPotion()
 {
+	name = "Health Potion";
 }
 
 std::string HealthPotion::getName()
 {
-	return std::string();
+	return name;
 }
 
 void HealthPotion::use(Character* character)
 {
+	Item::use(character);
+
+	// ?
 }
