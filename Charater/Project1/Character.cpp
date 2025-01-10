@@ -1,11 +1,9 @@
-#include <iostream>
-#include <string>
-#include <vector>
+#include "Character.h"
 
 using namespace std;
 class Character {
 private:
-	string name;
+    string name;
     static Character* instance;
     int level;
     int health;
@@ -15,7 +13,8 @@ private:
     int gold;
     //vector<item> inventory;
 
-    Character(string name) {
+    Character(string name)
+    {
         this->name = name;
         this->level = 1;
         this->attack = 30;
@@ -26,23 +25,24 @@ private:
     }
 
 public:
-    static Character* getInstance(string name = "") {
-        if (instance == nullptr) {
+    static Character* getInstance(string name = "")
+    {
+        if (instance == nullptr)
+        {
             instance = new Character(name);
         }
         return instance;
     }
-    void displayStatus(){
+    void displayStatus()
+    {
 
     }
-    void levelUp() {
+    void levelUp()
+    {
         this->level++;
     }
-    void useItem(int index) {
+    void useItem(int index)
+    {
 
     }
 };
-
-int main() {
-	
-}
