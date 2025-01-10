@@ -1,3 +1,4 @@
 # Text RPG Team Project 
 
-Hello Im gihoon
+Hello Im gihoo
+Hello Im sangmin
