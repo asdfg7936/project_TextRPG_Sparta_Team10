@@ -2,13 +2,17 @@
 
 AttackBoost::AttackBoost()
 {
+	name = "Attack Boost Potion";
 }
 
 std::string AttackBoost::getName()
 {
-	return NULL;
+	return name;
 }
 
 void AttackBoost::use(Character* character)
 {
+	Item::use(character);
+
+	// ?
 }
