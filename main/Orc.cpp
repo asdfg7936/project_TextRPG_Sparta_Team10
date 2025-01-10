@@ -3,10 +3,10 @@
 
 Orc::Orc(int level)
 	:Monster(
-		"Orc",
+		"Orc", //이름
 		(rand() % (level * 20)) + (level * 30), //체력
 		(rand() % (level * 5)) + (level * 10), //공격
-		level * 15
+		level * 15 //경험치
 	) {}
 
 void Orc::TakeDamage(int damage) {
