@@ -55,12 +55,10 @@ public:
 		}
 	}
 
-	void Log(const std::string& message) {
-		if (logFile.is_open()) {
-			logFile << message << std::endl;
-		}
-		std::cout << message << std::endl;
-	}
+	void Log(const std::string& message);	// Log 출력 및 기록
+	void Init();							// 초기화
+	void Progress();						// 게임 로직 총 집합
+	void Update();
 };
 
 GameManager* GameManager::instance = nullptr;

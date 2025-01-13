@@ -3,29 +3,12 @@
 
 int main()
 {
-    // Set
-    GameManager* GM = GameManager::GetInstance();
-
-    // Init
-    {
-
-    }
-
-    // Loop
-    {
-
-    }
-
-    // Render
-    {
-
-    }
+    GameManager* GM = GameManager::GetInstance();   // Set
     
-    // Log Test
-    GM->Log("Hello");
-
-    // End
-    GameManager::DestroyInstance();
+    GM->Init();         // Init
+    GM->Progress();     // Update
+        
+    GameManager::DestroyInstance(); // End
 
     return 0;
 }
