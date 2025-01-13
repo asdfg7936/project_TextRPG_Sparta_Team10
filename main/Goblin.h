@@ -1,6 +1,7 @@
 #pragma once
 #include "Monster.h"
-#include "../Character/Character.h"
+
+class Character;	// 전방선언
 
 class Goblin : public Monster {
 public:
