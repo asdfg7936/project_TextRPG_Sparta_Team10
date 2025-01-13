@@ -35,11 +35,11 @@ void Character::levelUp()
 	if (level <= 10)
 	{
 		this->level++;
+		this experience -= experienceToNestLevel
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;
 		this->experienceToNestLevel += experienceToNestLevel * 0.2;
-		this->experience = 0;
 
 		cout << "Level Up!" << endl;
 	}
@@ -67,21 +67,29 @@ bool Character::IsAlive()
 		return false;
 	}
 }
-void Character::setName(string name)
-{
-	this->name = name;
-}
-int Character::getAttack()
+
+int Character::getAttack() const
 {
 	return this->attack;
 }
-int Character::getGold()
+int Character::getGold() const
 {
 	return this->gold;
 }
 void Character::setGold(int gold)
 {
 	this->gold = gold;
+}
+void Character::TakeDamage(int damage)
+{
+	if (this->health - damage > 0)
+	{
+		this health -= damage;
+	}
+	else
+	{
+		this health = 0;
+	}
 }
 int Character::getLevel() const
 {
