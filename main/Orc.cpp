@@ -10,8 +10,9 @@ Orc::Orc(const Character& character)
 		character.getLevel() * 20 //°æÇèÄ¡
 	) {}
 
-void Orc::mTakeDamage(const Character& character) {
-	health -= character.getAttack();
+void Orc::mTakeDamage(int damage)
+{
+	health -= damage;
 	if (health < 0) {
 		health = 0;
 	}
