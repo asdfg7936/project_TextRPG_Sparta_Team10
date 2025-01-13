@@ -10,11 +10,11 @@ Goblin::Goblin(const Character& character)
 			"고블린",
 			(rand() % (character.getLevel() * 11)) + (character.getLevel() * 20),	//  체력
 			(rand() % (character.getLevel() * 6)) + (character.getLevel() * 5),		//  공격
-			character.getLevel() * 15)												// 경험치
+			character.getLevel() * 17)												// 경험치
 			{}
 
-void Goblin::TakeDamage(int damage) {
-	health -= damage;
+void Goblin::TakeDamage(const Character& character) {
+	health -= character.getAttack;
 	if (health < 0) {
 		health = 0;
 	}

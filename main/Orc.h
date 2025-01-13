@@ -1,9 +1,11 @@
 #pragma once
 #include "Monster.h"
 
+class Character;
+
 class Orc : public Monster {
 public:
-	Orc(int level);
+	Orc(const Character& character);
 	std::string GetName() const override { return name; }
 	int GetHealth() const override { return health; }
 	int GetAttack() const override { return attack; }

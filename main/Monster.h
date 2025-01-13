@@ -4,16 +4,19 @@
 //몬스터 클래스
 class Monster {
 protected:
+    int level;
     std::string name;
+    int maxHealth;
     int health;
     int attack;
     int exp;
 
 public:
-    Monster(int level, std::string name, int health, int attack, int exp);
+    Monster(int level, std::string name, int maxHealth, int attack, int exp);
     virtual ~Monster() {}
 
     virtual std::string GetName() const = 0;
+    virtual int GetMaxHealth() const = 0;
     virtual int GetHealth() const = 0;
     virtual int GetAttack() const = 0;
     virtual int GetExp() const = 0;
