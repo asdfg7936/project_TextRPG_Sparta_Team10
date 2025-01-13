@@ -25,4 +25,6 @@ public:
     void displayStatus();
     void levelUp();
     void useItem(int index);
+    int getMaxhealth();
+    void setHealth(int health);
 };
