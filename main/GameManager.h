@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 
+class Monster;
+
 class GameManager
 {
 private:
@@ -57,6 +59,9 @@ public:
 	void Log(const std::string& message);	// Log 출력 및 기록
 	void Init();							// 초기화
 	void Progress();						// 게임 로직 총 집합
-	void Update();
+	bool Update();
+
+private:
+	Monster* GenMonster(int playerLevel);
 
 };

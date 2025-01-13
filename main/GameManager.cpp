@@ -1,4 +1,12 @@
 #include "GameManager.h"
+#include "../Character/Character.h"
+#include "FileReaderManager.h"
+#include <vector>
+#include "Monster.h"
+#include "Wolf.h"
+#include "Goblin.h"
+#include "Orc.h"
+#include "Troll.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -18,7 +26,20 @@ void GameManager::Log(const std::string& message)
 /// </summary>
 void GameManager::Init()
 {
-	
+	// 플레이어 이름 입력
+	std::string playerName = "";
+	std::cout << "플레이어의 이름을 입력하세요 : ";
+	std::cin >> playerName;
+	Character::getInstance(playerName);
+	std::cout << playerName;	// debug
+
+	// 초반 스토리 출력
+	FileReaderManager* FRM = FileReaderManager::GetInstance();
+	FRM->OpenFile("../test.txt");
+	FRM->CloseFile();
+
+	// 플레이어 레벨 2로 설정하고 시작
+	Character::getInstance()->levelUp();
 }
 
 /// <summary>
@@ -38,22 +59,127 @@ void GameManager::Init()
 ///		목적지 or 다음 진행을 위한 선택 
 /// 
 /// </summary>
-void GameManager::Update()
+
+/// <summary>
+/// 
+/// 몬스터 : 늑대, 고블린, 오크, 트롤
+///	 
+/// 플레이어 레벱 1 ~ 4  : 늑대, 고블린
+/// 플레이어 레벱 5 ~ 8 : (늑대, 고블린) + 강한, 오크
+/// 플레이어 레벨 9 ~ 10 : 오크, 트롤
+/// 
+/// </summary>
+bool GameManager::Update()
 {
-	
+	Character* player = Character::getInstance();
+
+	// enter 입력 -> 한턴
+	char bStore = 'n';	// true : 상점
+	std::cout << "상점 가실? (Y/N) : ";
+	std::cin >> bStore;
+
+	// 상점을 들리게 된다면 -> 템 사는거 내가 선택해서 구매 (템 : 물약, 수상한 물약)
+	if('y' == bStore || 'Y' == bStore)
+	{
+		// 아이템 목록 출력
+		 
+		// 아이템 선택 및 구매
+
+		// 구매 완료 후 상점 탈출
+
+	}
+
+	// 몬스터 생성
+	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
+	std::cout << "야생의 " << genMonster->mGetName() << "이 출몰했습니다.\n";
+
+	// 전투
+	// 몬스터의 체력이 0 초과 이고 플레이어가 살아있을 때
+	while (genMonster->mGetHealth() > 0 && player->IsAlive())
+	{
+		// if(수상한 물약을 소지하고 있으면)
+		// {
+		//	30% 확률로 사용
+		// }
+		// 
+		// if(체력이 50% 이하면)
+		// {
+		//	체력 물약을 사용한다.
+		// }
+		// else
+		// {
+		//	공격
+		genMonster->mTakeDamage(player->getAttack());
+		// }
+
+		// 몬스터가 플레이어 공격
+		player->TakeDamage(genMonster->mGetAttack());
+	}
+
+	// 몬스터가 죽은 경우
+	if (genMonster->mGetHealth() <= 0)
+	{
+		int rndGold = 0;
+		// 몬스터가 죽으면? -> 경험치/골드 획득
+		player->setGold(player->getGold() + rndGold);
+		// 경험치 작업 ㄱㄱ 
+	}
+
+	return player->IsAlive();
+}
+
+/// <summary>
+/// 
+/// container = [ 늑대, 고블린, 오크, 트롤 ]
+///                0      1      2     3
+/// 
+/// 플레이어 레벱 1 ~ 4  : 늑대, 고블린
+/// 플레이어 레벱 5 ~ 8 : (늑대, 고블린) + 강한, 오크
+/// 플레이어 레벨 9 ~ 10 : 오크, 트롤
+/// 
+/// 
+/// </summary>
+Monster* GameManager::GenMonster(int playerLevel)
+{
+	Monster* result = nullptr;
+
+	std::vector<Monster*> Monsters;
+	Monsters.push_back(new Wolf(*Character::getInstance()));
+	Monsters.push_back(new Goblin(*Character::getInstance()));
+	Monsters.push_back(new Orc(*Character::getInstance()));
+	Monsters.push_back(new Troll(*Character::getInstance()));
+
+	if (playerLevel < 5)
+	{
+		// 늑대, 고블린 (0, 1)
+		int idx = rand() % 2;	// 0 ~ 1
+		result = Monsters[idx];
+	}
+	else if (playerLevel < 9)
+	{
+		// (늑대, 고블린) + 강한, 오크 (0,1,2)
+		int idx = rand() % 3;	// 0 ~ 2
+		result = Monsters[idx];
+	}
+	else
+	{
+		// 오크, 트롤 (2,3)
+		int idx = rand() % 2 + 2;	// 0 ~ 1
+		result = Monsters[idx];
+	}
+
+	return result;
 }
 
 #pragma region Progress
 // 게임 로직 돌려주는 곳
 void GameManager::Progress()
 {
-	// 게임 종료 조건 : Player 사망
+	// 게임 종료 조건 : Player 사망 또는 플레이어의 레벨이 10 미만일때
 	bool bPlayerAlive = true;
-	while (bPlayerAlive)
+	while (bPlayerAlive || Character::getInstance()->getLevel() < 10)
 	{
-		Update();
-
-		//bPlayerAlive = 플레이어로부터 체크;
+		bPlayerAlive = Update();
 	}
 
 	// 게임종료 로직 수행
