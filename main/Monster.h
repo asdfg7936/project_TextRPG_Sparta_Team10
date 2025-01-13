@@ -10,7 +10,7 @@ protected:
     int exp;
 
 public:
-    Monster(std::string name, int health, int attack, int exp);
+    Monster(int level, std::string name, int health, int attack, int exp);
     virtual ~Monster() {}
 
     virtual std::string GetName() const = 0;

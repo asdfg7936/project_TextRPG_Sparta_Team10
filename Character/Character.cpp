@@ -67,6 +67,22 @@ bool Character::IsAlive()
 		return false;
 	}
 }
+void Character::setName(string name)
+{
+	this->name = name;
+}
+int Character::getAttack()
+{
+	return this->attack;
+}
+int Character::getGold()
+{
+	return this->gold;
+}
+void Character::setGold(int gold)
+{
+	this->gold = gold;
+}
 int Character::getLevel()
 {
 	return this->level;
