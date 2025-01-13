@@ -38,5 +38,4 @@ public:
     void TakeDamage(int damage);
 };
 
-//Character* Charcter::instance = nullptr;
-Character* Character::instance = nullptr;   // modify typo_kgh
+

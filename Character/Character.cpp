@@ -1,5 +1,7 @@
 #include "Character.h"
 
+Character* Character::instance = nullptr;
+
 Character::Character(string name)
 {
 	this->name = name;
@@ -35,7 +37,7 @@ void Character::levelUp()
 	if (level <= 10)
 	{
 		this->level++;
-		this->experience -= experienceToNestLevel
+		this->experience -= experienceToNestLevel;
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;

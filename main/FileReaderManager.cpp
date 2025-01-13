@@ -26,8 +26,6 @@ void FileReaderManager::ReadFile()
 			}
 		}
 	}
-
-	int a = 0;
 }
 
 bool FileReaderManager::OpenFile(std::string filePath)
