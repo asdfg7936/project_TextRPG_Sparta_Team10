@@ -12,11 +12,11 @@ void GameManager::Log(const std::string& message)
 
 /// <summary>
 /// 게임 시작전 초기화 해야하는 것들 추가
-/// ex) 플레이어 캐릭터 생성, 등...
+/// ex) 플레이어 캐릭터 생성, 등... 1111
 /// </summary>
 void GameManager::Init()
 {
-	1
+
 }
 
 /// <summary>
