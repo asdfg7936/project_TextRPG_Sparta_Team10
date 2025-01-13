@@ -1,18 +1,17 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <filesystem>
 
 class GameManager
 {
 private:
 	static GameManager* instance;
 
-	std::ofstream logFile;
+	std::ofstream logFile;	// Output File Stream
 
 	GameManager()
 	{
-		std::cout << "[ Create GameManager ]" << std::endl;
+		std::cout << "[ Create Game Manager ]" << std::endl;
 
 		logFile.open("../log.txt", std::ios::app); // 로그 파일 열기 (append 모드)
 		if (!logFile.is_open()) {
@@ -51,7 +50,7 @@ public:
 		{
 			delete instance;
 			instance = nullptr;
-			std::cout << "[ Delete GameManager ]" << std::endl;
+			std::cout << "[ Delete Game Manager ]" << std::endl;
 		}
 	}
 
@@ -59,6 +58,5 @@ public:
 	void Init();							// 초기화
 	void Progress();						// 게임 로직 총 집합
 	void Update();
-};
 
-GameManager* GameManager::instance = nullptr;
+};
