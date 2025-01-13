@@ -6,4 +6,4 @@ Monster::Monster(std::string name, int health, int attack, int exp)
 */
 
 Monster::Monster(int level, std::string name, int health, int attack, int exp)
-	: name(name), health(health), attack(attack), exp(exp) {}
+	: level(level), name(name), health(health), attack(attack), exp(exp) {}
