@@ -35,7 +35,7 @@ void Character::levelUp()
 	if (level <= 10)
 	{
 		this->level++;
-		this experience -= experienceToNestLevel
+		this->experience -= experienceToNestLevel
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;
@@ -84,11 +84,11 @@ void Character::TakeDamage(int damage)
 {
 	if (this->health - damage > 0)
 	{
-		this health -= damage;
+		this->health -= damage;
 	}
 	else
 	{
-		this health = 0;
+		this->health = 0;
 	}
 }
 int Character::getLevel() const
