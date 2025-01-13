@@ -28,8 +28,8 @@ public:
     void displayStatus();
     void levelUp();
     void useItem(int index);
-    int getMaxhealth();
-    int getLevel();
+    int getMaxhealth() const;
+    int getLevel() const;
     void setHealth(int health);
     bool IsAlive();
     void setName(string name);
