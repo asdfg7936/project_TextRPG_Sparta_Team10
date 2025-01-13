@@ -33,6 +33,12 @@ void Character::levelUp()
 	this->health = maxhealth;
 	this->attack += level * 5;
 }
+int Character::getMaxhealth() {
+    return this->maxhealth;
+}
+void Character::setHealth(int health) {
+    this->health = health;
+}
 void Character::useItem(int index)
 {
 
