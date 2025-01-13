@@ -39,6 +39,7 @@ void Character::levelUp()
 		this->health = maxHealth;
 		this->attack += level * 5;
 		this->experienceToNestLevel += experienceToNestLevel * 0.2;
+		this->experience = 0;
 
 		cout << "Level Up!" << endl;
 	}
@@ -55,6 +56,17 @@ void Character::setHealth(int health)
 {
     this->health = health;
 }
+bool Character::IsAlive()
+{
+	if (this->health > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 int Character::getLevel()
 {
 	return this->level;
@@ -63,4 +75,5 @@ void Character::useItem(int index)
 {
 
 }
+
 
