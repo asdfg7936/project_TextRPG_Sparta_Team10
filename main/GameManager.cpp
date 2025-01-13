@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+GameManager* GameManager::instance = nullptr;
+
 #pragma region Constructor
 void GameManager::Log(const std::string& message)
 {
