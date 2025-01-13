@@ -43,6 +43,12 @@ void Character::levelUp()
 		cout << "Alredy Maxlevel!" << endl;
 	}
 }
+int Character::getMaxhealth() {
+    return this->maxhealth;
+}
+void Character::setHealth(int health) {
+    this->health = health;
+}
 void Character::useItem(int index)
 {
 
