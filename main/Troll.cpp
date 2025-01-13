@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include "../Character/Character.h"
 
-Troll:Troll(const Character& character)
+Troll::Troll(const Character& character)
 	:Monster(character.getLevel(),
 		"Æ®·Ñ",
 		(rand() % (character.getLevel() * 11)) + (character.getLevel() * 20),

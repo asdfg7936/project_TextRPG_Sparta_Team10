@@ -1,5 +1,6 @@
 #include "Wolf.h"
 #include <cstdlib>
+#include "../Character/Character.h"
 
 Wolf::Wolf(const Character& character)
 	:Monster(character.getLevel(),
