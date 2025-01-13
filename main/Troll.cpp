@@ -10,8 +10,8 @@ Troll::Troll(const Character& character)
 		character.getLevel() * 23
 	) {}
 
-void Troll::TakeDamage(const Character& character) {
-	health -= character.getAttack;
+void Troll::mTakeDamage(const Character& character) {
+	health -= character.getAttack();
 	if (health < 0) {
 		health = 0;
 	}

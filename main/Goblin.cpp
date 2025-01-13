@@ -13,8 +13,8 @@ Goblin::Goblin(const Character& character)
 			character.getLevel() * 17)												// °æÇèÄ¡
 			{}
 
-void Goblin::TakeDamage(const Character& character) {
-	health -= character.getAttack;
+void Goblin::mTakeDamage(const Character& character) {
+	health -= character.getAttack();
 	if (health < 0) {
 		health = 0;
 	}
