@@ -5,9 +5,9 @@
 // 공격력 : 레벨 x 5 ~ 레벨 x 10
 Goblin::Goblin(int level)
 	:Monster(
-		"Goblin",
-		(rand() % (level * 20)) + (level * 30),  //  체력
-		(rand() % (level * 5)) + (level * 10),  //  공격
+		"고블린",
+		(rand() % (level * 11)) + (level * 20),  //  체력
+		(rand() % (level * 6)) + (level * 5),  //  공격
 		level * 15 // 경험치
 	) {}
 
