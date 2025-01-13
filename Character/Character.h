@@ -3,7 +3,8 @@
 #include <vector>
 
 using namespace std;
-class Character {
+class Character 
+{
 private:
     string name;
     static Character* instance;
@@ -12,6 +13,7 @@ private:
     int maxhealth;
     int attack;
     int experience;
+    int experienceToNestLevel;
     int gold;
     //vector<item> inventory;
 
@@ -26,5 +28,6 @@ public:
     void levelUp();
     void useItem(int index);
     int getMaxhealth();
+    int getLevel();
     void setHealth(int health);
 };

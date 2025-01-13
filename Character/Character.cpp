@@ -8,6 +8,7 @@ Character::Character(string name)
 	this->health = 200;
 	this->maxhealth = 200;
 	this->experience = 0;
+	this->experienceToNestLevel = 100;
 	this->gold = 0;
 }
 
@@ -23,8 +24,8 @@ void Character::displayStatus()
 {
 	cout << "Status" << endl;
 	cout << "Level: " << level << endl;
-	cout << "Exp: " << experience << " / 100" << endl;
-	cout << "Health: " << health << " / " << maxhealth << endl;
+	cout << "Exp: " << experience << " / " <<  << endl;
+	cout << "Health: " << health << " / " << endl;
 	cout << "Attack: " << attack << endl;
 }
 void Character::levelUp()
@@ -35,6 +36,7 @@ void Character::levelUp()
 		this->maxhealth += level * 20;
 		this->health = maxhealth;
 		this->attack += level * 5;
+		this->experienceToNestLevel += experienceToNestLevel * 0.2;
 
 		cout << "Level Up!" << endl;
 	}
@@ -43,11 +45,17 @@ void Character::levelUp()
 		cout << "Alredy Maxlevel!" << endl;
 	}
 }
-int Character::getMaxhealth() {
+int Character::getMaxhealth() 
+{
     return this->maxhealth;
 }
-void Character::setHealth(int health) {
+void Character::setHealth(int health) 
+{
     this->health = health;
+}
+int Character::getLevel()
+{
+	return this->level;
 }
 void Character::useItem(int index)
 {
