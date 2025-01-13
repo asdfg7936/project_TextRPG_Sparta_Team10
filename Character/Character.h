@@ -32,10 +32,10 @@ public:
     int getLevel() const;
     void setHealth(int health);
     bool IsAlive();
-    void setName(string name);
-    int getAttack();
-    int getGold();
+    int getAttack() const;
+    int getGold() const;
     void setGold(int gold);
+    void TakeDamage(int damage);
 };
 
 //Character* Charcter::instance = nullptr;
