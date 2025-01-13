@@ -21,6 +21,7 @@ static Character::Character* getInstance(string name = "")
 }
 void Character::displayStatus()
 {
+	cout << "Status" << endl;
 	cout << "Health: " << health << " / " << maxhealth << endl;
 	cout << "Level: " << level << endl;
 	cout << "Exp: " << experience << " / 100" << endl;
@@ -28,10 +29,19 @@ void Character::displayStatus()
 }
 void Character::levelUp()
 {
-	this->level++;
-	this->maxhealth += level * 20;
-	this->health = maxhealth;
-	this->attack += level * 5;
+	if (level <= 10)
+	{
+		this->level++;
+		this->maxhealth += level * 20;
+		this->health = maxhealth;
+		this->attack += level * 5;
+
+		cout << "Level Up!" << endl;
+	}
+	else
+	{
+		cout << "Alredy Maxlevel!" << endl;
+	}
 }
 void Character::useItem(int index)
 {
