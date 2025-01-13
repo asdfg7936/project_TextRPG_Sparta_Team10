@@ -10,8 +10,8 @@ Wolf::Wolf(const Character& character)
 		character.getLevel() * 15
 	) {}
 
-void Wolf::TakeDamage(const Character& character) {
-	health -= character.getAttack;
+void Wolf::mTakeDamage(const Character& character) {
+	health -= character.getAttack();
 	if (health < 0) {
 		health = 0;
 	}

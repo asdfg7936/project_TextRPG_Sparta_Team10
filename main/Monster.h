@@ -15,10 +15,10 @@ public:
     Monster(int level, std::string name, int maxHealth, int attack, int exp);
     virtual ~Monster() {}
 
-    virtual std::string GetName() const = 0;
-    virtual int GetMaxHealth() const = 0;
-    virtual int GetHealth() const = 0;
-    virtual int GetAttack() const = 0;
-    virtual int GetExp() const = 0;
-    virtual void TakeDamage(int damage) = 0;
+    virtual std::string mGetName() const = 0;
+    virtual int mGetMaxHealth() const = 0;
+    virtual int mGetHealth() const = 0;
+    virtual int mGetAttack() const = 0;
+    virtual int mGetExp() const = 0;
+    virtual void mTakeDamage(int damage) = 0;
 };
