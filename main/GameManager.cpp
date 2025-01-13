@@ -16,7 +16,7 @@ void GameManager::Log(const std::string& message)
 /// </summary>
 void GameManager::Init()
 {
-
+	1
 }
 
 /// <summary>
