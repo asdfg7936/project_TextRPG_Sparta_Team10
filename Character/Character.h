@@ -3,15 +3,17 @@
 #include <vector>
 
 using namespace std;
-class Character {
+class Character 
+{
 private:
     string name;
     static Character* instance;
     int level;
     int health;
-    int maxhealth;
+    int maxHealth;
     int attack;
     int experience;
+    int experienceToNestLevel;
     int gold;
     //vector<item> inventory;
 
@@ -26,5 +28,8 @@ public:
     void levelUp();
     void useItem(int index);
     int getMaxhealth();
+    int getLevel();
     void setHealth(int health);
 };
+
+Character* Charcter::instance = nullptr;
