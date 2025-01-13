@@ -32,4 +32,5 @@ public:
     void setHealth(int health);
 };
 
-Character* Charcter::instance = nullptr;
+//Character* Charcter::instance = nullptr;
+Character* Character::instance = nullptr;   // modify typo_kgh
