@@ -10,7 +10,7 @@ private:
     static Character* instance;
     int level;
     int health;
-    int maxhealth;
+    int maxHealth;
     int attack;
     int experience;
     int experienceToNestLevel;
@@ -31,3 +31,5 @@ public:
     int getLevel();
     void setHealth(int health);
 };
+
+Character* Charcter::instance = nullptr;
