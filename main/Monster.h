@@ -4,6 +4,7 @@
 //몬스터 클래스
 class Monster {
 protected:
+    int level;
     std::string name;
     int health;
     int attack;
