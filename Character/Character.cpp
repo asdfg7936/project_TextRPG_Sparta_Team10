@@ -48,9 +48,9 @@ void Character::levelUp()
 		cout << "Alredy Maxlevel!" << endl;
 	}
 }
-int Character::getMaxhealth() 
+int Character::getMaxhealth() const
 {
-    return this->maxHealth;
+	return this->maxHealth;
 }
 void Character::setHealth(int health) 
 {
@@ -83,7 +83,7 @@ void Character::setGold(int gold)
 {
 	this->gold = gold;
 }
-int Character::getLevel()
+int Character::getLevel() const
 {
 	return this->level;
 }
