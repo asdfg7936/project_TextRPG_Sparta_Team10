@@ -84,11 +84,11 @@ void Character::TakeDamage(int damage)
 {
 	if (this->health - damage > 0)
 	{
-		this health -= damage;
+		this->health -= damage;
 	}
 	else
 	{
-		this health = 0;
+		this->health = 0;
 	}
 }
 int Character::getLevel() const
