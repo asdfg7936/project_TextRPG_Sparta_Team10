@@ -22,10 +22,10 @@ static Character::Character* getInstance(string name = "")
 void Character::displayStatus()
 {
 	cout << "Status" << endl;
-	cout << "Health: " << health << " / " << maxhealth << endl;
 	cout << "Level: " << level << endl;
 	cout << "Exp: " << experience << " / 100" << endl;
-
+	cout << "Health: " << health << " / " << maxhealth << endl;
+	cout << "Attack: " << attack << endl;
 }
 void Character::levelUp()
 {
