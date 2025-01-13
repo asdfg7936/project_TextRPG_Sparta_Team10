@@ -32,6 +32,7 @@ public:
     int getLevel();
     void setHealth(int health);
     bool IsAlive();
+    void setName(string name);
 };
 
 //Character* Charcter::instance = nullptr;

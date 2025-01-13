@@ -67,6 +67,10 @@ bool Character::IsAlive()
 		return false;
 	}
 }
+void Character::setName(string name)
+{
+	this->name = name;
+}
 int Character::getLevel()
 {
 	return this->level;
