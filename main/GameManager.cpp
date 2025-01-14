@@ -7,6 +7,7 @@
 #include "Goblin.h"
 #include "Orc.h"
 #include "Troll.h"
+#include "StrongMonster.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -197,14 +198,18 @@ Monster* GameManager::GenMonster(int playerLevel)
 	if (playerLevel < 4)
 	{
 		// 늑대, 고블린 (0, 1)
-		int idx = rand() % 2;	// 0 ~ 1
-		result = Monsters[idx];
+		int idx = rand() % 2; // 0 ~ 1
+		result = Monsters[idx];	
 	}
 	else if (playerLevel < 7)
 	{
 		// (늑대, 고블린) + 강한, 오크 (0,1,2)
 		int idx = rand() % 3;	// 0 ~ 2
 		result = Monsters[idx];
+
+		if (idx < 2) {
+			result = new StrongMonster(result);
+		}
 	}
 	else
 	{
