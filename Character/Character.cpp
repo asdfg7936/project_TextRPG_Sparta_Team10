@@ -40,11 +40,7 @@ void Character::levelUp()
 		if (this->experience > this->experienceToNestLevel)
 		{
 			this->experience -= experienceToNestLevel;
-		}
-		else
-		{
-			this->experience = 0;
-		}		
+		}	
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;

@@ -72,12 +72,15 @@ void GameManager::Init()
 bool GameManager::Update()
 {
 	Character* player = Character::getInstance();
+	
+	//몬스터 소환
 	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
-	// enter 입력 -> 한턴
-	int Select = 0;	// true : 상점
-	std::cout << "상점을 가려면 1을 눌러주세요";
-	std::cout << "능력치를 보려면 2를 눌러주세요";
-	std::cout << "전투를 시작하려면 3을 눌러주세요";
+	
+	int Select = 0;
+	std::cout << "다음 행동을 선택하세요" << endl;
+	std::cout << "1번 : 상점" << endl;
+	std::cout << "2번 : 상태 확인" << endl;
+	std::cout << "3번 : 전투 시작" << endl;
 	std::cin >> Select;
 
 
@@ -116,6 +119,7 @@ bool GameManager::Update()
 			//	30% 확률로 사용
 			// }
 			// else
+<<<<<<< HEAD
 			// {}
 			//	공격
 			genMonster->mTakeDamage(player->getAttack());
@@ -123,15 +127,23 @@ bool GameManager::Update()
 			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;			// }
 			
 			std::cin.get(); //  enter 치면 턴 넘기기
+=======
+			// {
+			//	플레이어가 몬스터 공격
+			genMonster->mTakeDamage(player->getAttack());
+			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
+			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
+>>>>>>> 2156b4557b6409ed1c966559f25e82b95aaf8085
 
 			// 몬스터가 플레이어 공격
-			player->TakeDamage(genMonster->mGetAttack());
-			std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했습니다." << std::endl;
-			std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
+			if (genMonster->mGetHealth() > 0)
+			{
+				player->TakeDamage(genMonster->mGetAttack());
+				std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했습니다." << std::endl;
+				std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
+			}
 		}
 	}
-	// 몬스터 생성
-
 
 	// 몬스터가 죽은 경우
 	if (genMonster->mGetHealth() <= 0)
@@ -142,13 +154,20 @@ bool GameManager::Update()
 		int rndGold = rand() % 11 + 10;
 		player->setGold(player->getGold() + rndGold);
 		std::cout << rndGold << " 골드 획득" << std::endl;
-		player->setExperience(player->getExperience() + genMonster->mGetExp());
-		std::cout << genMonster->mGetExp() << " 경험치 획득" << std::endl;
+		if (player->getLevel() < 10)
+		{
+			player->setExperience(player->getExperience() + genMonster->mGetExp());
+			std::cout << genMonster->mGetExp() << " 경험치 획득" << std::endl;
+		}
 	}
 
 	//레벨업 체크
 	if (player->getExperience() >= player->getExperienceToNextLevel() && player->getLevel() < 10) {
 		player->levelUp();
+	}
+	if (player->getLevel() == 10)
+	{
+		player->setExperience(0);
 	}
 
 	return player->IsAlive();
