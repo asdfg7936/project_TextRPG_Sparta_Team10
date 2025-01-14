@@ -1,6 +1,5 @@
 #include "Goblin.h"
 #include <string>
-#include "../Character/Character.h"
 
 //몬스터 스펙은 캐릭터 레벨에 비례해서 랜덤 생성 +- 1
 // 체력 : 레벨x20 ~ 레벨 x 30
