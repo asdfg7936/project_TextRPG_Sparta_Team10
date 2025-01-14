@@ -21,5 +21,5 @@ public:
     virtual int mGetAttack() const = 0;
     virtual int mGetExp() const = 0;
     virtual void mTakeDamage(int damage) = 0;
-    virtual int mDisplayStatus();
+    virtual void mDisplayStatus();
 };
