@@ -1,6 +1,5 @@
 #include "Troll.h"
 #include <cstdlib>
-#include "../Character/Character.h"
 
 Troll::Troll(int level)
 	:Monster(level,

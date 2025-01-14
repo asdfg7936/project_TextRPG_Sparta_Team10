@@ -1,6 +1,5 @@
 #include "Orc.h"
 #include <cstdlib>
-#include "../Character/Character.h"
 
 Orc::Orc(int level)
 	:Monster(level,
