@@ -38,6 +38,8 @@ public:
     void TakeDamage(int damage);
     void setExperience(int experience);
     int getExperience() const;
+    int getExperienceToNextLevel() const;
+    string getName() const;
 };
 
 
