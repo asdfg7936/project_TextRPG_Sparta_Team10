@@ -13,8 +13,8 @@ private:
     int health;
     int maxHealth;
     int attack;
-    int experience;
-    int experienceToNestLevel;
+    double experience;
+    double experienceToNestLevel;
     int gold;
     //vector<item> inventory;
 
@@ -27,7 +27,7 @@ public:
     static Character* getInstance(string name = "");
     void displayStatus();
     void levelUp();
-    void useItem(int index);
+    //void useItem(int index);
     int getMaxhealth() const;
     int getLevel() const;
     void setHealth(int health);
@@ -36,9 +36,9 @@ public:
     int getGold() const;
     void setGold(int gold);
     void TakeDamage(int damage);
-    void setExperience(int experience);
-    int getExperience() const;
-    int getExperienceToNextLevel() const;
+    void setExperience(double experience);
+    double getExperience() const;
+    double getExperienceToNextLevel() const;
     string getName() const;
 };
 
