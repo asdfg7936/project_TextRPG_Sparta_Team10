@@ -8,6 +8,10 @@
 #include "Orc.h"
 #include "Troll.h"
 
+
+/// <summary>
+/// 한글 테스트
+/// </summary>
 GameManager* GameManager::instance = nullptr;
 
 #pragma region Constructor
