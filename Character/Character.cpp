@@ -60,6 +60,8 @@ void Character::levelUp()
 		cout << "------------------" << endl;
 	}
 }
+//void Character::useItem(int index)
+
 int Character::getMaxhealth() const
 {
 	return this->maxHealth;
@@ -71,6 +73,10 @@ int Character::getHealth() const
 void Character::setHealth(int health) 
 {
     this->health = health;
+}
+void Character::setMaxHealth(int maxHealth)
+{
+	this->maxHealth = maxHealth;
 }
 bool Character::IsAlive()
 {
@@ -111,6 +117,10 @@ double Character::getExperience() const
 {
 	return this->experience;
 }
+void Character::setAttack(int attack)
+{
+	this->attack = attack;
+}
 double Character::getExperienceToNextLevel() const
 {
 	return this->experienceToNestLevel;
@@ -127,6 +137,5 @@ int Character::getLevel() const
 {
 	return this->level;
 }
-//void Character::useItem(int index)
 
 
