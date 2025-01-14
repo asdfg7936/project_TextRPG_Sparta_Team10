@@ -1,6 +1,5 @@
 #include "Wolf.h"
 #include <cstdlib>
-#include "../Character/Character.h"
 
 Wolf::Wolf(int level)
 	:Monster(level,
