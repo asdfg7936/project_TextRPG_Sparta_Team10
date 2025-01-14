@@ -34,10 +34,17 @@ void Character::displayStatus()
 }
 void Character::levelUp()
 {
-	if (level <= 10)
+	if (level < 10)
 	{
 		this->level++;
-		this->experience -= experienceToNestLevel;
+		if (this->experience > this->experienceToNestLevel)
+		{
+			this->experience -= experienceToNestLevel;
+		}
+		else
+		{
+			this->experience = 0;
+		}		
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;
@@ -93,19 +100,19 @@ void Character::TakeDamage(int damage)
 		this->health = 0;
 	}
 }
-int Character::getExperience() const
+double Character::getExperience() const
 {
 	return this->experience;
 }
-int Character::getExperienceToNextLevel() const
+double Character::getExperienceToNextLevel() const
 {
 	return this->experienceToNestLevel;
 }
 string Character::getName() const
 {
-	return this->name();
+	return this->name;
 }
-void Character::setExperience(int experience)
+void Character::setExperience(double experience)
 {
 	this->experience = experience;
 }
@@ -113,9 +120,6 @@ int Character::getLevel() const
 {
 	return this->level;
 }
-void Character::useItem(int index)
-{
-
-}
+//void Character::useItem(int index)
 
 
