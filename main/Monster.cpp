@@ -9,3 +9,8 @@ int Monster::mGetAttack() const
 {
 	return attack;
 }
+
+int Monster::mGetExp() const 
+{
+	return exp;
+}
