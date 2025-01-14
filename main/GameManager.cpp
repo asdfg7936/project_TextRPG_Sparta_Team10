@@ -136,7 +136,7 @@ bool GameManager::Update()
 	// 몬스터가 죽은 경우
 	if (genMonster->mGetHealth() <= 0)
 	{
-		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." <<  std::endl;
+		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
 		std::cout << "다음 보상을 획득했습니다." << std::endl;
 		// 몬스터가 죽으면? -> 경험치/골드 획득
 		int rndGold = rand() % 11 + 10;
