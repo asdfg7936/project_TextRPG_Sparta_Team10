@@ -93,7 +93,11 @@ void Character::TakeDamage(int damage)
 		this->health = 0;
 	}
 }
-void Character::setExperience(int experience) const
+int Character::getExperience() const
+{
+	return this->experience;
+}
+void Character::setExperience(int experience)
 {
 	this->experience = experience;
 }

@@ -36,7 +36,8 @@ public:
     int getGold() const;
     void setGold(int gold);
     void TakeDamage(int damage);
-    void setExperience(int experience) const;
+    void setExperience(int experience);
+    int getExperience() const;
 };
 
 
