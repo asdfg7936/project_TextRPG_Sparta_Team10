@@ -14,3 +14,11 @@ int Monster::mGetExp() const
 {
 	return exp;
 }
+
+void Monster::mDisplayStatus()
+{
+	cout << "- " << name << " -"
+	cout << "Level: " << level << endl;
+	cout << "Health: " << health << " / " << maxHealth << endl;
+	cout << "Attack: " << attack << endl;
+}
