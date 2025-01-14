@@ -97,6 +97,14 @@ int Character::getExperience() const
 {
 	return this->experience;
 }
+int Character::getExperienceToNextLevel() const
+{
+	return this->experienceToNestLevel;
+}
+string Character::getName() const
+{
+	return this->name();
+}
 void Character::setExperience(int experience)
 {
 	this->experience = experience;
