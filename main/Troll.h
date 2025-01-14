@@ -9,5 +9,6 @@ public:
 	int mGetHealth() const override { return health; }
 	int mGetAttack() const override { return attack; }
 	int mGetExp() const override { return exp; }
+	int mGetLevel() const override { return level; }
 	virtual void mTakeDamage(int damage) override;
 };
