@@ -119,14 +119,14 @@ bool GameManager::Update()
 			// {
 			//	공격
 			genMonster->mTakeDamage(player->getAttack());
-			std::cout << player->getName << "이(가) " << genMonster->mGetName << "을 공격했습니다." << std::endl;
-			std::cout << genMonster->mGetName << "은 " << player->getAttack << "만큼 대미지를 입었습니다." << std::endl;
+			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을 공격했습니다." << std::endl;
+			std::cout << genMonster->mGetName() << "은 " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
 			// }
 
 			// 몬스터가 플레이어 공격
 			player->TakeDamage(genMonster->mGetAttack());
-			std::cout << genMonster->mGetName << "이(가) " << player->getName << "을 공격했습니다." << std::endl;
-			std::cout << player->getName << "은 " << genMonster->mGetAttack << "만큼 대미지를 입었습니다." << std::endl;
+			std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을 공격했습니다." << std::endl;
+			std::cout << player->getName() << "은 " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
 		}
 	}
 	// 몬스터 생성
@@ -135,7 +135,7 @@ bool GameManager::Update()
 	// 몬스터가 죽은 경우
 	if (genMonster->mGetHealth() <= 0)
 	{
-		std::cout << genMonster->mGetName << "이(가) 죽었습니다." <<  std::endl;
+		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
 		std::cout << "다음 보상을 획득했습니다." << std::endl;
 		// 몬스터가 죽으면? -> 경험치/골드 획득
 		int rndGold = rand() % 11 + 10;
@@ -146,9 +146,9 @@ bool GameManager::Update()
 	}
 
 	//레벨업 체크
-	if (player->getExperience >= player->getExperienceToNextLevel)
+	if (player->getExperience() >= player->getExperienceToNextLevel())
 	{
-		player->levelUp;
+		player->levelUp();
 	}
 
 	return player->IsAlive();
