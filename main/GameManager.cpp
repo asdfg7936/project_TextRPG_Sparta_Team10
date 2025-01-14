@@ -21,77 +21,74 @@ void GameManager::Log(const std::string& message)
 #pragma endregion
 
 /// <summary>
-/// ê²Œì„ ì‹œì‘ì „ ì´ˆê¸°í™” í•´ì•¼í•˜ëŠ” ê²ƒë“¤ ì¶”ê°€
-/// ex) í”Œë ˆì´ì–´ ìºë¦­í„° ìƒì„±, ë“±...
+/// °ÔÀÓ ½ÃÀÛÀü ÃÊ±âÈ­ ÇØ¾ßÇÏ´Â °Íµé Ãß°¡
+/// ex) ÇÃ·¹ÀÌ¾î Ä³¸¯ÅÍ »ı¼º, µî...
 /// </summary>
 void GameManager::Init()
 {
-	// í”Œë ˆì´ì–´ ì´ë¦„ ì…ë ¥
+	// ÇÃ·¹ÀÌ¾î ÀÌ¸§ ÀÔ·Â
 	std::string playerName = "";
-	std::cout << "í”Œë ˆì´ì–´ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš” : ";
+	std::cout << "ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä : ";
 	std::cin >> playerName;
 	Character::getInstance(playerName);
 	std::cout << playerName;	// debug
 
-	// ì´ˆë°˜ ìŠ¤í† ë¦¬ ì¶œë ¥
+	// ÃÊ¹İ ½ºÅä¸® Ãâ·Â
 	FileReaderManager* FRM = FileReaderManager::GetInstance();
 	FRM->OpenFile("../test.txt");
 	FRM->CloseFile();
 
-	// í”Œë ˆì´ì–´ ë ˆë²¨ 2ë¡œ ì„¤ì •í•˜ê³  ì‹œì‘
+	// ÇÃ·¹ÀÌ¾î ·¹º§ 2·Î ¼³Á¤ÇÏ°í ½ÃÀÛ
 	Character::getInstance()->levelUp();
 }
 
 /// <summary>
-/// ê²Œì„ ë¡œì§
+/// °ÔÀÓ ·ÎÁ÷
 /// 
-/// í•œ í„´ë™ì•ˆ ë°œìƒí•´ì•¼í•˜ëŠ” ëª¨ë“  ê²ƒ
+/// ÇÑ ÅÏµ¿¾È ¹ß»ıÇØ¾ßÇÏ´Â ¸ğµç °Í
 ///	ex)
-///		í”Œë ˆì´ì–´ ì…ë ¥ (ê³µê²©? ìŠ¤í‚¬? ì•„ì´í…œ? ìƒì ?)
-///		í”Œë ˆì´ì–´ì˜ ì…ë ¥ê°’ì— ë”°ë¥¸ ìƒí˜¸ì‘ìš©
-///			case1 : í”Œë ˆì´ì–´ê°€ ëª¬ìŠ¤í„°ë¥¼ ê³µê²©í–ˆë‹¤.
-///			case2 : í”Œë ˆì´ì–´ê°€ ìŠ¤í‚¬ì„ì“´ë‹¤ -> MP ë¶€ì¡±í•˜ë‹¤
-///			case3 : ì•„ì´í…œì„ ì‚¬ìš©í–ˆë‹¤ -> ê·¸ì—ë”°ë¥¸ íš¨ê³¼
-///			case4 : ìƒì  NPC ë§Œë‚¬ë‹¤ -> ì•„ì´í…œ ì‚¬ì•¼í•˜ëŠ”ë° ëˆì´ ë¶€ì¡±í•˜ë‹¤. êµ¬ë§¤í–ˆë‹¤.
-///		í”Œë ˆì´ì–´ or ëª¬ìŠ¤í„°ê°€ ì£½ìŒ
-///			case1 : í”Œë ˆì´ì–´ ì£½ìŒ -> ê²Œì„ ë (ë¡œê·¸ë¼ì´í¬)
-///			case2 : ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆë‹¤ -> ê²½í—˜ì¹˜, ì•„ì´í…œ ë“œë -> ë ˆë²¨ì—… or ì¥ë¹„ë¥¼ ê°ˆì•„ë‚„ìˆ˜ë„ìˆê³  or ì´ë²¤íŠ¸ë°œìƒ
-///		ëª©ì ì§€ or ë‹¤ìŒ ì§„í–‰ì„ ìœ„í•œ ì„ íƒ 
+///		ÇÃ·¹ÀÌ¾î ÀÔ·Â (°ø°İ? ½ºÅ³? ¾ÆÀÌÅÛ? »óÁ¡?)
+///		ÇÃ·¹ÀÌ¾îÀÇ ÀÔ·Â°ª¿¡ µû¸¥ »óÈ£ÀÛ¿ë
+///			case1 : ÇÃ·¹ÀÌ¾î°¡ ¸ó½ºÅÍ¸¦ °ø°İÇß´Ù.
+///			case2 : ÇÃ·¹ÀÌ¾î°¡ ½ºÅ³À»¾´´Ù -> MP ºÎÁ·ÇÏ´Ù
+///			case3 : ¾ÆÀÌÅÛÀ» »ç¿ëÇß´Ù -> ±×¿¡µû¸¥ È¿°ú
+///			case4 : »óÁ¡ NPC ¸¸³µ´Ù -> ¾ÆÀÌÅÛ »ç¾ßÇÏ´Âµ¥ µ·ÀÌ ºÎÁ·ÇÏ´Ù. ±¸¸ÅÇß´Ù.
+///		ÇÃ·¹ÀÌ¾î or ¸ó½ºÅÍ°¡ Á×À½
+///			case1 : ÇÃ·¹ÀÌ¾î Á×À½ -> °ÔÀÓ ³¡ (·Î±×¶óÀÌÅ©)
+///			case2 : ¸ó½ºÅÍ°¡ Á×¾ú´Ù -> °æÇèÄ¡, ¾ÆÀÌÅÛ µå¶ø -> ·¹º§¾÷ or Àåºñ¸¦ °¥¾Æ³¥¼öµµÀÖ°í or ÀÌº¥Æ®¹ß»ı
+///		¸ñÀûÁö or ´ÙÀ½ ÁøÇàÀ» À§ÇÑ ¼±ÅÃ 
 /// 
 /// </summary>
 
 /// <summary>
 /// 
-/// ëª¬ìŠ¤í„° : ëŠ‘ëŒ€, ê³ ë¸”ë¦°, ì˜¤í¬, íŠ¸ë¡¤
+/// ¸ó½ºÅÍ : ´Á´ë, °íºí¸°, ¿ÀÅ©, Æ®·Ñ
 ///	 
-/// í”Œë ˆì´ì–´ ë ˆë²¨ 1 ~ 4  : ëŠ‘ëŒ€, ê³ ë¸”ë¦°
-/// í”Œë ˆì´ì–´ ë ˆë²¨ 5 ~ 8 : (ëŠ‘ëŒ€, ê³ ë¸”ë¦°) + ê°•í•œ, ì˜¤í¬
-/// í”Œë ˆì´ì–´ ë ˆë²¨ 9 ~ 10 : ì˜¤í¬, íŠ¸ë¡¤
+/// ÇÃ·¹ÀÌ¾î ·¹º§ 1 ~ 4  : ´Á´ë, °íºí¸°
+/// ÇÃ·¹ÀÌ¾î ·¹º§ 5 ~ 8 : (´Á´ë, °íºí¸°) + °­ÇÑ, ¿ÀÅ©
+/// ÇÃ·¹ÀÌ¾î ·¹º§ 9 ~ 10 : ¿ÀÅ©, Æ®·Ñ
 /// 
 /// </summary>
 bool GameManager::Update()
 {
 	Character* player = Character::getInstance();
-
-	//ëª¬ìŠ¤í„° ìƒì„±
 	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
-
-	// enter ì…ë ¥ -> í•œí„´
-	int Select = 0;	// true : ìƒì 
-	std::cout << "ë¬´ì—‡ì„ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?" << std::endl;
-	std::cout << "1ë²ˆ : ìƒì " << std::endl;
-	std::cout << "2ë²ˆ : ëŠ¥ë ¥ì¹˜ í™•ì¸" << std::endl;
-	std::cout << "3ë²ˆ : ì „íˆ¬ ì‹œì‘" << std::endl;
+	// enter ÀÔ·Â -> ÇÑÅÏ
+	int Select = 0;	// true : »óÁ¡
+	std::cout << "»óÁ¡À» °¡·Á¸é 1À» ´­·¯ÁÖ¼¼¿ä";
+	std::cout << "´É·ÂÄ¡¸¦ º¸·Á¸é 2¸¦ ´­·¯ÁÖ¼¼¿ä";
+	std::cout << "ÀüÅõ¸¦ ½ÃÀÛÇÏ·Á¸é 3À» ´­·¯ÁÖ¼¼¿ä";
 	std::cin >> Select;
 
-	// ìƒì ì„ ë“¤ë¦¬ê²Œ ëœë‹¤ë©´ -> í…œ ì‚¬ëŠ”ê±° ë‚´ê°€ ì„ íƒí•´ì„œ êµ¬ë§¤ (í…œ : ë¬¼ì•½, ìˆ˜ìƒí•œ ë¬¼ì•½)
-	if(1 == Select)
-	{
-		// ì•„ì´í…œ ëª©ë¡ ì¶œë ¥
-		 
-		// ì•„ì´í…œ ì„ íƒ ë° êµ¬ë§¤
 
-		// êµ¬ë§¤ ì™„ë£Œ í›„ ìƒì  íƒˆì¶œ
+	// »óÁ¡À» µé¸®°Ô µÈ´Ù¸é -> ÅÛ »ç´Â°Å ³»°¡ ¼±ÅÃÇØ¼­ ±¸¸Å (ÅÛ : ¹°¾à, ¼ö»óÇÑ ¹°¾à)
+	if (1 == Select)
+	{
+		// ¾ÆÀÌÅÛ ¸ñ·Ï Ãâ·Â
+
+		// ¾ÆÀÌÅÛ ¼±ÅÃ ¹× ±¸¸Å
+
+		// ±¸¸Å ¿Ï·á ÈÄ »óÁ¡ Å»Ãâ
 	}
 
 	if (2 == Select)
@@ -101,73 +98,67 @@ bool GameManager::Update()
 
 	if (3 == Select)
 	{
-		
-		std::cout << "ì•¼ìƒì˜ " << genMonster->mGetName() << "ì´(ê°€) ì¶œëª°í–ˆìŠµë‹ˆë‹¤.\n";
-		//ëª¬ìŠ¤í„° ìŠ¤í…Ÿ ì¶œë ¥
+		std::cout << "¾ß»ıÀÇ " << genMonster->mGetName() << "ÀÌ(°¡) Ãâ¸ôÇß½À´Ï´Ù.\n";
+		//¸ó½ºÅÍ ½ºÅİ Ãâ·Â
 		//genMonster->displayStatus();
-		// ì „íˆ¬
-		// ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ì´ 0 ì´ˆê³¼ ì´ê³  í”Œë ˆì´ì–´ê°€ ì‚´ì•„ìˆì„ ë•Œ
+		// ÀüÅõ
+		// ¸ó½ºÅÍÀÇ Ã¼·ÂÀÌ 0 ÃÊ°ú ÀÌ°í ÇÃ·¹ÀÌ¾î°¡ »ì¾ÆÀÖÀ» ¶§
 		while (genMonster->mGetHealth() > 0 && player->IsAlive())
 		{
-			//std::cin.get();  //  enter ì¹˜ë©´ í„´ ë„˜ê¸°ê¸°
-			// if(ì²´ë ¥ì´ 50% ì´í•˜ë©´ && ì²´ë ¥ ë¬¼ì•½ ì†Œì§€í•˜ê³  ìˆìœ¼ë©´)
+			//std::cin.get();  //  enter Ä¡¸é ÅÏ ³Ñ±â±â
+			// if(Ã¼·ÂÀÌ 50% ÀÌÇÏ¸é && Ã¼·Â ¹°¾à ¼ÒÁöÇÏ°í ÀÖÀ¸¸é)
 			// {
-			//	ì²´ë ¥ ë¬¼ì•½ì„ ì‚¬ìš©í•œë‹¤.
+			//	Ã¼·Â ¹°¾àÀ» »ç¿ëÇÑ´Ù.
 			// }
-			// else if(ìˆ˜ìƒí•œ ë¬¼ì•½ì„ ì†Œì§€í•˜ê³  ìˆìœ¼ë©´)
+			// else if(¼ö»óÇÑ ¹°¾àÀ» ¼ÒÁöÇÏ°í ÀÖÀ¸¸é)
 			// {
-			//	30% í™•ë¥ ë¡œ ì‚¬ìš©
+			//	30% È®·ü·Î »ç¿ë
 			// }
 			// else
 			// {
-			//	ê³µê²©
+			//	°ø°İ
 			genMonster->mTakeDamage(player->getAttack());
-			std::cout << player->getName() << "ì´(ê°€) " << genMonster->mGetName() << "ì„(ë¥¼) ê³µê²©í–ˆìŠµë‹ˆë‹¤." << std::endl;
-			std::cout << genMonster->mGetName() << "ì€(ëŠ”) " << player->getAttack() << "ë§Œí¼ ëŒ€ë¯¸ì§€ë¥¼ ì…ì—ˆìŠµë‹ˆë‹¤." << std::endl;
-			// }
+			std::cout << player->getName() << "ÀÌ(°¡) " << genMonster->mGetName() << "À»(¸¦) °ø°İÇß½À´Ï´Ù." << std::endl;
+			std::cout << genMonster->mGetName() << "Àº(´Â) " << player->getAttack() << "¸¸Å­ ´ë¹ÌÁö¸¦ ÀÔ¾ú½À´Ï´Ù." << std::endl;			// }
 
-			// ëª¬ìŠ¤í„°ê°€ í”Œë ˆì´ì–´ ê³µê²©
+			// ¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾î °ø°İ
 			player->TakeDamage(genMonster->mGetAttack());
-			std::cout << genMonster->mGetName() << "ì´(ê°€) " << player->getName() << "ì„(ë¥¼) ê³µê²©í–ˆìŠµë‹ˆë‹¤." << std::endl;
-			std::cout << player->getName() << "ì€(ëŠ”) " << genMonster->mGetAttack() << "ë§Œí¼ ëŒ€ë¯¸ì§€ë¥¼ ì…ì—ˆìŠµë‹ˆë‹¤." << std::endl;
+			std::cout << genMonster->mGetName() << "ÀÌ(°¡) " << player->getName() << "À»(¸¦) °ø°İÇß½À´Ï´Ù." << std::endl;
+			std::cout << player->getName() << "Àº(´Â) " << genMonster->mGetAttack() << "¸¸Å­ ´ë¹ÌÁö¸¦ ÀÔ¾ú½À´Ï´Ù." << std::endl;
 		}
 	}
+	// ¸ó½ºÅÍ »ı¼º
 
-	// ëª¬ìŠ¤í„°ê°€ ì£½ì€ ê²½ìš°
+
+	// ¸ó½ºÅÍ°¡ Á×Àº °æ¿ì
 	if (genMonster->mGetHealth() <= 0)
 	{
-		std::cout << genMonster->mGetName() << "ì´(ê°€) ì£½ì—ˆìŠµë‹ˆë‹¤." << std::endl;
-		std::cout << "ë‹¤ìŒ ë³´ìƒì„ íšë“í–ˆìŠµë‹ˆë‹¤." << std::endl;
-		// ëª¬ìŠ¤í„°ê°€ ì£½ìœ¼ë©´? -> ê²½í—˜ì¹˜/ê³¨ë“œ íšë“
+		std::cout << genMonster->mGetName() << "ÀÌ(°¡) Á×¾ú½À´Ï´Ù." << std::endl;
+		std::cout << "´ÙÀ½ º¸»óÀ» È¹µæÇß½À´Ï´Ù." << std::endl;
+		// ¸ó½ºÅÍ°¡ Á×À¸¸é? -> °æÇèÄ¡/°ñµå È¹µæ
 		int rndGold = rand() % 11 + 10;
 		player->setGold(player->getGold() + rndGold);
-		std::cout << rndGold << " ê³¨ë“œ íšë“" << std::endl;
-		if (player->getLevel() < 10)
-		{
-			player->setExperience(player->getExperience() + genMonster->mGetExp());
-			std::cout << genMonster->mGetExp() << " ê²½í—˜ì¹˜ íšë“" << std::endl;
-		}
-
+		std::cout << rndGold << " °ñµå È¹µæ" << std::endl;
+		player->setExperience(player->getExperience() + genMonster->mGetExp());
+		std::cout << genMonster->mGetExp() << " °æÇèÄ¡ È¹µæ" << std::endl;
 	}
 
-	//ë ˆë²¨ì—… ì²´í¬
-	if (player->getExperience() >= player->getExperienceToNextLevel() && player->getLevel() < 10)
-	{
+	//·¹º§¾÷ Ã¼Å©
+	if (player->getExperience() >= player->getExperienceToNextLevel() && player->getLevel() < 10) {
 		player->levelUp();
 	}
-
 
 	return player->IsAlive();
 }
 
 /// <summary>
 /// 
-/// container = [ ëŠ‘ëŒ€, ê³ ë¸”ë¦°, ì˜¤í¬, íŠ¸ë¡¤ ]
+/// container = [ ´Á´ë, °íºí¸°, ¿ÀÅ©, Æ®·Ñ ]
 ///                0      1      2     3
 /// 
-/// í”Œë ˆì´ì–´ ë ˆë²¨ 1 ~ 4  : ëŠ‘ëŒ€, ê³ ë¸”ë¦°
-/// í”Œë ˆì´ì–´ ë ˆë²¨ 5 ~ 8 : (ëŠ‘ëŒ€, ê³ ë¸”ë¦°) + ê°•í•œ, ì˜¤í¬
-/// í”Œë ˆì´ì–´ ë ˆë²¨ 9 ~ 10 : ì˜¤í¬, íŠ¸ë¡¤
+/// ÇÃ·¹ÀÌ¾î ·¹º§ 1 ~ 4  : ´Á´ë, °íºí¸°
+/// ÇÃ·¹ÀÌ¾î ·¹º§ 5 ~ 8 : (´Á´ë, °íºí¸°) + °­ÇÑ, ¿ÀÅ©
+/// ÇÃ·¹ÀÌ¾î ·¹º§ 9 ~ 10 : ¿ÀÅ©, Æ®·Ñ
 /// 
 /// 
 /// </summary>
@@ -183,19 +174,19 @@ Monster* GameManager::GenMonster(int playerLevel)
 
 	if (playerLevel < 4)
 	{
-		// ëŠ‘ëŒ€, ê³ ë¸”ë¦° (0, 1)
+		// ´Á´ë, °íºí¸° (0, 1)
 		int idx = rand() % 2;	// 0 ~ 1
 		result = Monsters[idx];
 	}
-	else if (playerLevel < 8)
+	else if (playerLevel < 7)
 	{
-		// (ëŠ‘ëŒ€, ê³ ë¸”ë¦°) + ê°•í•œ, ì˜¤í¬ (0,1,2)
+		// (´Á´ë, °íºí¸°) + °­ÇÑ, ¿ÀÅ© (0,1,2)
 		int idx = rand() % 3;	// 0 ~ 2
 		result = Monsters[idx];
 	}
 	else
 	{
-		// ì˜¤í¬, íŠ¸ë¡¤ (2,3)
+		// ¿ÀÅ©, Æ®·Ñ (2,3)
 		int idx = rand() % 2 + 2;	// 0 ~ 1
 		result = Monsters[idx];
 	}
@@ -204,17 +195,17 @@ Monster* GameManager::GenMonster(int playerLevel)
 }
 
 #pragma region Progress
-// ê²Œì„ ë¡œì§ ëŒë ¤ì£¼ëŠ” ê³³
+// °ÔÀÓ ·ÎÁ÷ µ¹·ÁÁÖ´Â °÷
 void GameManager::Progress()
 {
-	// ê²Œì„ ì¢…ë£Œ ì¡°ê±´ : Player ì‚¬ë§ ë˜ëŠ” í”Œë ˆì´ì–´ì˜ ë ˆë²¨ì´ 10 ë¯¸ë§Œì¼ë•Œ
+	// °ÔÀÓ Á¾·á Á¶°Ç : Player »ç¸Á ¶Ç´Â ÇÃ·¹ÀÌ¾îÀÇ ·¹º§ÀÌ 10 ¹Ì¸¸ÀÏ¶§
 	bool bPlayerAlive = true;
 	while (bPlayerAlive || Character::getInstance()->getLevel() < 10)
 	{
 		bPlayerAlive = Update();
 	}
 
-	// ê²Œì„ì¢…ë£Œ ë¡œì§ ìˆ˜í–‰
+	// °ÔÀÓÁ¾·á ·ÎÁ÷ ¼öÇà
 
 }
 #pragma endregion
