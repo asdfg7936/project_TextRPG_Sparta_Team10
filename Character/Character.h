@@ -29,6 +29,7 @@ public:
     void levelUp();
     //void useItem(int index);
     int getMaxhealth() const;
+    int getHealth() const;
     int getLevel() const;
     void setHealth(int health);
     bool IsAlive();

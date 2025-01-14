@@ -14,5 +14,6 @@ void AttackBoost::use(Character* character)
 {
 	Item::use(character);
 
-	// ?
+	
+
 }

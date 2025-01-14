@@ -26,11 +26,13 @@ Character* Character::getInstance(string name)
 
 void Character::displayStatus()
 {
+	cout << "------------------" << endl;
 	cout << "Status" << endl;
 	cout << "Level: " << level << endl;
 	cout << "Exp: " << experience << " / " << experienceToNestLevel << endl;
 	cout << "Health: " << health << " / " << maxHealth << endl;
 	cout << "Attack: " << attack << endl;
+	cout << "------------------" << endl;
 }
 void Character::levelUp()
 {
@@ -46,16 +48,25 @@ void Character::levelUp()
 		this->attack += level * 5;
 		this->experienceToNestLevel += experienceToNestLevel * 0.2;
 
+		cout << "------------------" << endl;
 		cout << "Level Up!" << endl;
+		cout << "------------------" << endl;
+		std::cout << endl;
 	}
 	else
 	{
+		cout << "------------------" << endl;
 		cout << "Alredy Maxlevel!" << endl;
+		cout << "------------------" << endl;
 	}
 }
 int Character::getMaxhealth() const
 {
 	return this->maxHealth;
+}
+int Character::getHealth() const
+{
+	return this->health;
 }
 void Character::setHealth(int health) 
 {
