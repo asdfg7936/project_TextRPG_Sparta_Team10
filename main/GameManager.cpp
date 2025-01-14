@@ -21,77 +21,77 @@ void GameManager::Log(const std::string& message)
 #pragma endregion
 
 /// <summary>
-/// 게임 시작전 초기화 해야하는 것들 추가
-/// ex) 플레이어 캐릭터 생성, 등...
+/// 寃 � 珥湲고 댁쇳 寃 異媛
+/// ex) �댁 罹由� , ...
 /// </summary>
 void GameManager::Init()
 {
-	// 플레이어 이름 입력
+	// �댁 대 �
 	std::string playerName = "";
-	std::cout << "플레이어의 이름을 입력하세요 : ";
+	std::cout << "�댁댁 대 �ν몄 : ";
 	std::cin >> playerName;
 	Character::getInstance(playerName);
 	std::cout << playerName;	// debug
 
-	// 초반 스토리 출력
+	// 珥諛 ㅽ由 異�
 	FileReaderManager* FRM = FileReaderManager::GetInstance();
 	FRM->OpenFile("../test.txt");
 	FRM->CloseFile();
 
-	// 플레이어 레벨 2로 설정하고 시작
+	// �댁 �踰 2濡 ㅼ怨 
 	Character::getInstance()->levelUp();
 }
 
 /// <summary>
-/// 게임 로직
+/// 寃 濡吏
 /// 
-/// 한 턴동안 발생해야하는 모든 것
+///  대 諛댁쇳 紐⑤ 寃
 ///	ex)
-///		플레이어 입력 (공격? 스킬? 아이템? 상점?)
-///		플레이어의 입력값에 따른 상호작용
-///			case1 : 플레이어가 몬스터를 공격했다.
-///			case2 : 플레이어가 스킬을쓴다 -> MP 부족하다
-///			case3 : 아이템을 사용했다 -> 그에따른 효과
-///			case4 : 상점 NPC 만났다 -> 아이템 사야하는데 돈이 부족하다. 구매했다.
-///		플레이어 or 몬스터가 죽음
-///			case1 : 플레이어 죽음 -> 게임 끝 (로그라이크)
-///			case2 : 몬스터가 죽었다 -> 경험치, 아이템 드랍 -> 레벨업 or 장비를 갈아낄수도있고 or 이벤트발생
-///		목적지 or 다음 진행을 위한 선택 
+///		�댁 � (怨듦꺽? ㅽ? 댄? �?)
+///		�댁댁 �κ 곕Ⅸ 몄
+///			case1 : �댁닿 紐ъㅽ곕� 怨듦꺽.
+///			case2 : �댁닿 ㅽъ대 -> MP 遺議깊
+///			case3 : 댄 ъ⑺ -> 洹몄곕Ⅸ ④낵
+///			case4 : � NPC 留щ -> 댄 ъ쇳  遺議깊. 援щℓ.
+///		�댁 or 紐ъㅽ곌 二쎌
+///			case1 : �댁 二쎌 -> 寃  (濡洹몃쇱댄)
+///			case2 : 紐ъㅽ곌 二쎌 -> 寃쏀移, 댄  -> �踰⑥ or λ瑜 媛怨 or 대깽몃
+///		紐⑹吏 or ㅼ 吏   
 /// 
 /// </summary>
 
 /// <summary>
 /// 
-/// 몬스터 : 늑대, 고블린, 오크, 트롤
+/// 紐ъㅽ : , 怨釉由, ㅽ, 몃·
 ///	 
-/// 플레이어 레벨 1 ~ 4  : 늑대, 고블린
-/// 플레이어 레벨 5 ~ 8 : (늑대, 고블린) + 강한, 오크
-/// 플레이어 레벨 9 ~ 10 : 오크, 트롤
+/// �댁 �踰 1 ~ 4  : , 怨釉由
+/// �댁 �踰 5 ~ 8 : (, 怨釉由) + 媛, ㅽ
+/// �댁 �踰 9 ~ 10 : ㅽ, 몃·
 /// 
 /// </summary>
 bool GameManager::Update()
 {
 	Character* player = Character::getInstance();
 
-	//몬스터 생성
+	//紐ъㅽ 
 	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
 
-	// enter 입력 -> 한턴
-	int Select = 0;	// true : 상점
-	std::cout << "무엇을 하시겠습니까?" << std::endl;
-	std::cout << "1번 : 상점" << std::endl;
-	std::cout << "2번 : 능력치 확인" << std::endl;
-	std::cout << "3번 : 전투 시작" << std::endl;
+	// enter � -> 
+	int Select = 0;	// true : �
+	std::cout << "臾댁 寃듬源?" << std::endl;
+	std::cout << "1踰 : �" << std::endl;
+	std::cout << "2踰 : λμ " << std::endl;
+	std::cout << "3踰 : � " << std::endl;
 	std::cin >> Select;
 
-	// 상점을 들리게 된다면 -> 템 사는거 내가 선택해서 구매 (템 : 물약, 수상한 물약)
+	// � ㅻ━寃 ㅻ㈃ ->  щ嫄 닿 댁 援щℓ ( : 臾쇱,  臾쇱)
 	if(1 == Select)
 	{
-		// 아이템 목록 출력
+		// 댄 紐⑸ 異�
 		 
-		// 아이템 선택 및 구매
+		// 댄  諛 援щℓ
 
-		// 구매 완료 후 상점 탈출
+		// 援щℓ 猷  � 異
 	}
 
 	if (2 == Select)
@@ -102,55 +102,51 @@ bool GameManager::Update()
 	if (3 == Select)
 	{
 		
-		std::cout << "야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
-		//몬스터 스텟 출력
+		std::cout << "쇱 " << genMonster->mGetName() << "(媛) 異紐고듬.\n";
+		//紐ъㅽ ㅽ 異�
 		//genMonster->displayStatus();
-		// 전투
-		// 몬스터의 체력이 0 초과 이고 플레이어가 살아있을 때
+		// �
+		// 紐ъㅽ곗 泥대μ 0 珥怨 닿� �댁닿 댁 
 		while (genMonster->mGetHealth() > 0 && player->IsAlive())
 		{
-			//std::cin.get();  //  enter 치면 턴 넘기기
-			// if(체력이 50% 이하면 && 체력 물약 소지하고 있으면)
+			//std::cin.get();  //  enter 移硫  湲곌린
+			// if(泥대μ 50% 댄硫 && 泥대 臾쇱 吏怨 쇰㈃)
 			// {
-			//	체력 물약을 사용한다.
+			//	泥대 臾쇱쎌 ъ⑺.
 			// }
-			// else if(수상한 물약을 소지하고 있으면)
+			// else if( 臾쇱쎌 吏怨 쇰㈃)
 			// {
-			//	30% 확률로 사용
+			//	30% 瑜濡 ъ
 			// }
 			// else
 			// {
-			//	공격
+			//	怨듦꺽
 			genMonster->mTakeDamage(player->getAttack());
-			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
-			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
+			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을 공격했습니다." << std::endl;
+			std::cout << genMonster->mGetName() << "은 " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
 			// }
 
-			// 몬스터가 플레이어 공격
+			// 紐ъㅽ곌 �댁 怨듦꺽
 			player->TakeDamage(genMonster->mGetAttack());
-			std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했습니다." << std::endl;
-			std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
+			std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을 공격했습니다." << std::endl;
+			std::cout << player->getName() << "은 " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
 		}
 	}
 
 	// 몬스터가 죽은 경우
-	if (genMonster->mGetHealth() <= 0)
+	if (GenMonster->mGetHealth() <= 0)
 	{
-		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
+		std::cout << GenMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
 		std::cout << "다음 보상을 획득했습니다." << std::endl;
 		// 몬스터가 죽으면? -> 경험치/골드 획득
 		int rndGold = rand() % 11 + 10;
 		player->setGold(player->getGold() + rndGold);
 		std::cout << rndGold << " 골드 획득" << std::endl;
-		if (player->getLevel() < 10)
-		{
-			player->setExperience(player->getExperience() + genMonster->mGetExp());
-			std::cout << genMonster->mGetExp() << " 경험치 획득" << std::endl;
-		}
-
+		player->setExperience(player->getExperience() + GenMonster->mGetExp());
+		std::cout << GenMonster->mGetExp() << " 경험치 획득" << std::endl;
 	}
 
-	//레벨업 체크
+	//�踰⑥ 泥댄
 	if (player->getExperience() >= player->getExperienceToNextLevel() && player->getLevel() < 10)
 	{
 		player->levelUp();
@@ -162,12 +158,12 @@ bool GameManager::Update()
 
 /// <summary>
 /// 
-/// container = [ 늑대, 고블린, 오크, 트롤 ]
+/// container = [ , 怨釉由, ㅽ, 몃· ]
 ///                0      1      2     3
 /// 
-/// 플레이어 레벨 1 ~ 4  : 늑대, 고블린
-/// 플레이어 레벨 5 ~ 8 : (늑대, 고블린) + 강한, 오크
-/// 플레이어 레벨 9 ~ 10 : 오크, 트롤
+/// �댁 �踰 1 ~ 4  : , 怨釉由
+/// �댁 �踰 5 ~ 8 : (, 怨釉由) + 媛, ㅽ
+/// �댁 �踰 9 ~ 10 : ㅽ, 몃·
 /// 
 /// 
 /// </summary>
@@ -183,19 +179,19 @@ Monster* GameManager::GenMonster(int playerLevel)
 
 	if (playerLevel < 4)
 	{
-		// 늑대, 고블린 (0, 1)
+		// , 怨釉由 (0, 1)
 		int idx = rand() % 2;	// 0 ~ 1
 		result = Monsters[idx];
 	}
 	else if (playerLevel < 8)
 	{
-		// (늑대, 고블린) + 강한, 오크 (0,1,2)
+		// (, 怨釉由) + 媛, ㅽ (0,1,2)
 		int idx = rand() % 3;	// 0 ~ 2
 		result = Monsters[idx];
 	}
 	else
 	{
-		// 오크, 트롤 (2,3)
+		// ㅽ, 몃· (2,3)
 		int idx = rand() % 2 + 2;	// 0 ~ 1
 		result = Monsters[idx];
 	}
@@ -204,17 +200,17 @@ Monster* GameManager::GenMonster(int playerLevel)
 }
 
 #pragma region Progress
-// 게임 로직 돌려주는 곳
+// 寃 濡吏 �ㅼ＜ 怨
 void GameManager::Progress()
 {
-	// 게임 종료 조건 : Player 사망 또는 플레이어의 레벨이 10 미만일때
+	// 寃 醫猷 議곌굔 : Player щ  �댁댁 �踰⑥ 10 誘몃쇰
 	bool bPlayerAlive = true;
 	while (bPlayerAlive || Character::getInstance()->getLevel() < 10)
 	{
 		bPlayerAlive = Update();
 	}
 
-	// 게임종료 로직 수행
+	// 寃醫猷 濡吏 
 
 }
 #pragma endregion
