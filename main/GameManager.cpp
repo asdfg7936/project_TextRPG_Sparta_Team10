@@ -105,7 +105,8 @@ bool GameManager::Update()
 		// 몬스터의 체력이 0 초과 이고 플레이어가 살아있을 때
 		while (genMonster->mGetHealth() > 0 && player->IsAlive())
 		{
-			//std::cin.get();  //  enter 치면 턴 넘기기
+			std::cin.get();  //  enter 치면 턴 넘기기
+
 			// if(체력이 50% 이하면 && 체력 물약 소지하고 있으면)
 			// {
 			//	체력 물약을 사용한다.
@@ -115,11 +116,13 @@ bool GameManager::Update()
 			//	30% 확률로 사용
 			// }
 			// else
-			// {
+			// {}
 			//	공격
 			genMonster->mTakeDamage(player->getAttack());
 			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
 			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;			// }
+			
+			std::cin.get(); //  enter 치면 턴 넘기기
 
 			// 몬스터가 플레이어 공격
 			player->TakeDamage(genMonster->mGetAttack());
