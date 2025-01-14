@@ -64,8 +64,8 @@ void GameManager::Init()
 /// 
 /// 몬스터 : 늑대, 고블린, 오크, 트롤
 ///	 
-/// 플레이어 레벱 1 ~ 4  : 늑대, 고블린
-/// 플레이어 레벱 5 ~ 8 : (늑대, 고블린) + 강한, 오크
+/// 플레이어 레벨 1 ~ 4  : 늑대, 고블린
+/// 플레이어 레벨 5 ~ 8 : (늑대, 고블린) + 강한, 오크
 /// 플레이어 레벨 9 ~ 10 : 오크, 트롤
 /// 
 /// </summary>
@@ -74,12 +74,13 @@ bool GameManager::Update()
 	Character* player = Character::getInstance();
 
 	// enter 입력 -> 한턴
-	char bStore = 'n';	// true : 상점
-	std::cout << "상점 가실? (Y/N) : ";
+	int bStore = 0;	// true : 상점
+	std::cout << "상점을 가려면 1을 눌러주세요) : ";
 	std::cin >> bStore;
+	int bStatus = 
 
 	// 상점을 들리게 된다면 -> 템 사는거 내가 선택해서 구매 (템 : 물약, 수상한 물약)
-	if('y' == bStore || 'Y' == bStore)
+	if(1 == bStore)
 	{
 		// 아이템 목록 출력
 		 
@@ -97,6 +98,7 @@ bool GameManager::Update()
 	// 몬스터의 체력이 0 초과 이고 플레이어가 살아있을 때
 	while (genMonster->mGetHealth() > 0 && player->IsAlive())
 	{
+		//std::cin.get();  //  enter 치면 턴 넘기기
 		// if(수상한 물약을 소지하고 있으면)
 		// {
 		//	30% 확률로 사용
@@ -119,10 +121,10 @@ bool GameManager::Update()
 	// 몬스터가 죽은 경우
 	if (genMonster->mGetHealth() <= 0)
 	{
-		int rndGold = 0;
 		// 몬스터가 죽으면? -> 경험치/골드 획득
+		int rndGold = rand() % 11 + 10;
 		player->setGold(player->getGold() + rndGold);
-		// 경험치 작업 ㄱㄱ 
+		player->setExperience(player->getExperience() + genMonster->mGetExp());
 	}
 
 	return player->IsAlive();
@@ -133,8 +135,8 @@ bool GameManager::Update()
 /// container = [ 늑대, 고블린, 오크, 트롤 ]
 ///                0      1      2     3
 /// 
-/// 플레이어 레벱 1 ~ 4  : 늑대, 고블린
-/// 플레이어 레벱 5 ~ 8 : (늑대, 고블린) + 강한, 오크
+/// 플레이어 레벨 1 ~ 4  : 늑대, 고블린
+/// 플레이어 레벨 5 ~ 8 : (늑대, 고블린) + 강한, 오크
 /// 플레이어 레벨 9 ~ 10 : 오크, 트롤
 /// 
 /// 
@@ -144,10 +146,10 @@ Monster* GameManager::GenMonster(int playerLevel)
 	Monster* result = nullptr;
 
 	std::vector<Monster*> Monsters;
-	Monsters.push_back(new Wolf(*Character::getInstance()));
-	Monsters.push_back(new Goblin(*Character::getInstance()));
-	Monsters.push_back(new Orc(*Character::getInstance()));
-	Monsters.push_back(new Troll(*Character::getInstance()));
+	Monsters.push_back(new Wolf(playerLevel));
+	Monsters.push_back(new Goblin(playerLevel));
+	Monsters.push_back(new Orc(playerLevel));
+	Monsters.push_back(new Troll(playerLevel));
 
 	if (playerLevel < 5)
 	{
