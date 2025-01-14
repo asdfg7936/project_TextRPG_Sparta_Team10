@@ -15,6 +15,7 @@ int Monster::mGetExp() const
 	return exp;
 }
 
+
 void Monster::mDisplayStatus()
 {
 	std::cout << "- " << name << " -" << std::endl;
