@@ -26,37 +26,57 @@ Character* Character::getInstance(string name)
 
 void Character::displayStatus()
 {
+	cout << "------------------" << endl;
 	cout << "Status" << endl;
 	cout << "Level: " << level << endl;
 	cout << "Exp: " << experience << " / " << experienceToNestLevel << endl;
 	cout << "Health: " << health << " / " << maxHealth << endl;
 	cout << "Attack: " << attack << endl;
+	cout << "------------------" << endl;
 }
 void Character::levelUp()
 {
-	if (level <= 10)
+	if (level < 10)
 	{
 		this->level++;
-		this->experience -= experienceToNestLevel;
+		if (this->experience > this->experienceToNestLevel)
+		{
+			this->experience -= experienceToNestLevel;
+		}	
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;
 		this->experienceToNestLevel += experienceToNestLevel * 0.2;
 
+		cout << "------------------" << endl;
 		cout << "Level Up!" << endl;
+		cout << "------------------" << endl;
+		std::cout << endl;
 	}
 	else
 	{
+		cout << "------------------" << endl;
 		cout << "Alredy Maxlevel!" << endl;
+		cout << "------------------" << endl;
 	}
 }
+//void Character::useItem(int index)
+
 int Character::getMaxhealth() const
 {
 	return this->maxHealth;
 }
+int Character::getHealth() const
+{
+	return this->health;
+}
 void Character::setHealth(int health) 
 {
     this->health = health;
+}
+void Character::setMaxHealth(int maxHealth)
+{
+	this->maxHealth = maxHealth;
 }
 bool Character::IsAlive()
 {
@@ -93,13 +113,29 @@ void Character::TakeDamage(int damage)
 		this->health = 0;
 	}
 }
+double Character::getExperience() const
+{
+	return this->experience;
+}
+void Character::setAttack(int attack)
+{
+	this->attack = attack;
+}
+double Character::getExperienceToNextLevel() const
+{
+	return this->experienceToNestLevel;
+}
+string Character::getName() const
+{
+	return this->name;
+}
+void Character::setExperience(double experience)
+{
+	this->experience = experience;
+}
 int Character::getLevel() const
 {
 	return this->level;
-}
-void Character::useItem(int index)
-{
-
 }
 
 

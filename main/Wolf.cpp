@@ -1,13 +1,12 @@
 #include "Wolf.h"
 #include <cstdlib>
-#include "../Character/Character.h"
 
-Wolf::Wolf(const Character& character)
-	:Monster(character.getLevel(),
+Wolf::Wolf(int level)
+	:Monster(level,
 		"´Á´ë",
-		(rand() % (character.getLevel() * 11)) + (character.getLevel() * 20),
-		(rand() % (character.getLevel() * 6)) + (character.getLevel() * 5),
-		character.getLevel() * 15
+		(rand() % (level * 11)) + (level * 20),
+		(rand() % (level * 6)) + (level * 5),
+		level * 15
 	) {}
 
 void Wolf::mTakeDamage(int damage)
