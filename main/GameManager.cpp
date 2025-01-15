@@ -34,13 +34,20 @@ void GameManager::Init()
 	std::cout << "\n\n\n";
 
 	// 초반 스토리 출력
-	FileReaderManager* FRM = FileReaderManager::GetInstance();
 	FRM->OpenFile(L"../story/intro.txt");
 	FRM->PrintLineAll();
 	FRM->CloseFile();
 
+	std::cout << "\n\n\n";
+
 	// 플레이어 레벨 2로 설정하고 시작
 	Character::getInstance()->levelUp();
+
+	FRM->OpenFile(L"../story/intro2.txt");
+	FRM->PrintLine(0);
+	FRM->CloseFile();
+
+	std::cout << "\n\n\n";
 }
 
 /// <summary>
