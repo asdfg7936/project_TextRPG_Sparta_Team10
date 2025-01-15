@@ -42,7 +42,7 @@ void Character::levelUp()
 		if (this->experience > this->experienceToNestLevel)
 		{
 			this->experience -= experienceToNestLevel;
-		}	
+		}
 		this->maxHealth += level * 20;
 		this->health = maxHealth;
 		this->attack += level * 5;
@@ -70,9 +70,9 @@ int Character::getHealth() const
 {
 	return this->health;
 }
-void Character::setHealth(int health) 
+void Character::setHealth(int health)
 {
-    this->health = health;
+	this->health = health;
 }
 void Character::setMaxHealth(int maxHealth)
 {
@@ -129,6 +129,22 @@ string Character::getName() const
 {
 	return this->name;
 }
+
+void Character::usePotion()
+{
+	// if(체력이 50% 이하면 && 체력 물약 소지하고 있으면)
+	// {
+	//	체력 물약을 사용한다.
+	// }
+	// else if(수상한 물약을 소지하고 있으면)
+	// {
+	//	30% 확률로 사용
+	// }
+	// else
+	// {
+	// }
+}
+
 void Character::setExperience(double experience)
 {
 	this->experience = experience;
