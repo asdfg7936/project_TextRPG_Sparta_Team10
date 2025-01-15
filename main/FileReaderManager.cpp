@@ -54,17 +54,31 @@ bool FileReaderManager::OpenFile(std::wstring filePath)
 	return true;
 }
 
-void FileReaderManager::PrintLine(int idx)
+void FileReaderManager::PrintLine(int idx, bool bTypeEffect)
 {
-	//std::wcout << lineContainer[idx];
-	typingEffect(lineContainer[idx]);
+	if (bTypeEffect)
+	{
+		typingEffect(lineContainer[idx]);
+	}
+	else
+	{
+		std::wcout << lineContainer[idx];
+	}
+
 }
 
-void FileReaderManager::PrintLineAll()
+void FileReaderManager::PrintLineAll(bool bTypeEffect)
 {
 	for (int i = 0; i < lineContainer.size(); ++i)
 	{
-		typingEffect(lineContainer[i]);
+		if (bTypeEffect)
+		{
+			typingEffect(lineContainer[i]);
+		}
+		else
+		{
+			std::wcout << lineContainer[i];
+		}
 		std::cout << std::endl;
 	}
 }
