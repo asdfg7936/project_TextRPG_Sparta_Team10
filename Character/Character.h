@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+//#include "../main/Item.h"
 
 using namespace std;
 class Character 
@@ -43,6 +44,9 @@ public:
     double getExperience() const;
     double getExperienceToNextLevel() const;
     string getName() const;
+
+    // 물약사용
+    void usePotion();
 };
 
 

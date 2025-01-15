@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="..\Character\Character.cpp" />
     <ClCompile Include="AttackBoost.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="FileReaderManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Goblin.cpp" />
@@ -138,12 +139,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Orc.cpp" />
+    <ClCompile Include="StrangePotion.cpp" />
     <ClCompile Include="Troll.cpp" />
     <ClCompile Include="Wolf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Character\Character.h" />
     <ClInclude Include="AttackBoost.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="FileReaderManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Goblin.h" />
@@ -152,6 +155,8 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
+    <ClInclude Include="StrangePotion.h" />
+    <ClInclude Include="StrongMonster.h" />
     <ClInclude Include="Troll.h" />
     <ClInclude Include="Wolf.h" />
   </ItemGroup>
