@@ -6,6 +6,8 @@
 #include <locale>
 #include <codecvt>
 
+#define FRM FileReaderManager::GetInstance()
+
 class FileReaderManager
 {
 private:
