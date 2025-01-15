@@ -49,7 +49,6 @@ public:
 		}
 		return instance;
 	}
-
 	static void DestroyInstance()
 	{
 		if (nullptr != instance)
@@ -73,9 +72,11 @@ public:
 	}
 
 	void Log(const std::string& message);	// Log 출력 및 기록
-	void Init();							// 초기화
-	void Progress();						// 게임 로직 총 집합
-	bool Update();
+
+	void Init();		// 초기화
+	void Progress();	// 게임 로직
+	bool Update();		// 게임 데이터 업데이트
+	void Destroy();		// 마무리 정리
 
 private:
 	Monster* GenMonster(int playerLevel);

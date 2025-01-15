@@ -3,23 +3,27 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <locale>
+#include <codecvt>
 
 class FileReaderManager
 {
 private:
 	static FileReaderManager* instance;
 
-	std::ifstream readFile;	// Input File Stream
-	std::vector<std::string> lineContainer;
+	//std::ifstream readFile;	// Input File Stream
+	//std::vector<std::string> lineContainer;
 
-	FileReaderManager()
-	{
-		std::cout << "[ Set File Reader Manager ]" << std::endl;
-	}
+	std::wifstream readFile;
+	std::vector<std::wstring>lineContainer;
 
-	~FileReaderManager()
+
+	FileReaderManager() 
 	{
+		readFile.imbue(std::locale(readFile.getloc(), new std::codecvt_utf8<wchar_t>));
+		std::wcout.imbue(std::locale(""));
 	}
+	~FileReaderManager() {}
 
 	FileReaderManager(const FileReaderManager&) = delete;
 	FileReaderManager& operator=(const FileReaderManager&) = delete;
@@ -48,7 +52,9 @@ private:
 	void ReadFile();
 
 public:
-	bool OpenFile(std::string filePath);
+	bool OpenFile(std::wstring filePath);
+	void PrintLine(int idx);	// lineContainer 에 들어있는 내용을 출력한다.
+	void PrintLineAll();		// lineContainer 에 들어있는 내용을 전부 출력한다.
 	void CloseFile();
 
 };
