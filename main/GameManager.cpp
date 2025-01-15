@@ -35,6 +35,11 @@ void GameManager::Init()
 
 	// 초반 스토리 출력
 	FRM->OpenFile(L"../story/intro.txt");
+	FRM->PrintLineAll();
+	FRM->CloseFile();
+
+	// 초반 스토리 2
+	FRM->OpenFile(L"../story/intro2.txt");
 	FRM->PrintLineAll(false);
 	FRM->CloseFile();
 
@@ -43,8 +48,9 @@ void GameManager::Init()
 	// 플레이어 레벨 2로 설정하고 시작
 	Character::getInstance()->levelUp();
 
-	FRM->OpenFile(L"../story/intro2.txt");
-	FRM->PrintLine(0,false);
+	//초반 스토리 3
+	FRM->OpenFile(L"../story/intro3.txt");
+	FRM->PrintLineAll(false);
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -265,7 +271,9 @@ void GameManager::Progress()
 	// 게임종료 로직 수행
 	if (!bPlayerAlive)
 	{
-		std::cout << "플레이어가 사망했습니다." << std::endl;
+		FRM->OpenFile(L"../story/Dead.txt");
+		FRM->PrintLineAll();
+		FRM->CloseFile();
 	}
 
 }
