@@ -2,7 +2,17 @@
 #include <string>
 #include <vector>
 
+class Item;
+
 using namespace std;
+
+struct Stuff
+{
+    Item* Item;
+    string ItemName;
+    int ItemQuantity;
+};
+
 class Character 
 {
 private:
@@ -15,7 +25,7 @@ private:
     double experience;
     double experienceToNestLevel;
     int gold;
-    //vector<Item> inventory;
+    vector<Stuff> inventory;
 
     Character(string name);
 
@@ -44,6 +54,8 @@ public:
 
     // 물약사용
     void usePotion();
+    // 인벤토리 확인
+    void showInventory();
 };
 
 
