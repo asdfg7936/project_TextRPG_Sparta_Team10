@@ -15,7 +15,7 @@ private:
     double experience;
     double experienceToNestLevel;
     int gold;
-    //vector<Item> inventory;
+    //vector<Stuff> inventory;
 
     Character(string name);
 
