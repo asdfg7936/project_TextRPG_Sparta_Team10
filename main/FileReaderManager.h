@@ -55,8 +55,8 @@ private:
 
 public:
 	bool OpenFile(std::wstring filePath);
-	void PrintLine(int idx);	// lineContainer 에 들어있는 내용을 출력한다.
-	void PrintLineAll();		// lineContainer 에 들어있는 내용을 전부 출력한다.
+	void PrintLine(int idx, bool bTypeEffect = true);	// lineContainer 에 들어있는 내용을 출력한다.
+	void PrintLineAll(bool bTypeEffect = true);		// lineContainer 에 들어있는 내용을 전부 출력한다.
 	void CloseFile();
 
 	void typingEffect(const std::wstring& text, int delay = 50);
