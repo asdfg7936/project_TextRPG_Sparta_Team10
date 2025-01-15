@@ -10,5 +10,6 @@ public:
 	int mGetHealth() const override { return health; }
 	int mGetAttack() const override { return attack; }
 	int mGetExp() const override { return exp; }
+	int mGetLevel() const override { return level; }
 	void mTakeDamage(int damage);
 };

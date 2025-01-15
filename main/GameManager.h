@@ -80,5 +80,4 @@ public:
 
 private:
 	Monster* GenMonster(int playerLevel);
-
 };

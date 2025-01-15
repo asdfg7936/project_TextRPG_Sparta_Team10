@@ -8,6 +8,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "StrongMonster.h"
+#include "Boss.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -30,12 +31,11 @@ void GameManager::Init()
 	std::cout << "플레이어의 이름을 입력하세요 : ";
 	std::cin >> playerName;
 	Character::getInstance(playerName);
-
 	std::cout << "\n\n\n";
 
 	// 초반 스토리 출력
 	FRM->OpenFile(L"../story/intro.txt");
-	FRM->PrintLineAll();
+	FRM->PrintLineAll(false);
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -44,7 +44,7 @@ void GameManager::Init()
 	Character::getInstance()->levelUp();
 
 	FRM->OpenFile(L"../story/intro2.txt");
-	FRM->PrintLine(0);
+	FRM->PrintLine(0,false);
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -113,23 +113,44 @@ bool GameManager::Update()
 		{
 			std::cin.get();  //  enter 치면 턴 넘기기
 
+
 			// 플레이어 물약 사용
 			player->usePotion();
 			
-			//	플레이어가 몬스터 공격
-			genMonster->mTakeDamage(player->getAttack());
-			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
-			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
-			std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
-			std::cin.get();
+			// 보스
+			if (genMonster->mGetName() == "오크 족장") {
 
-			// 몬스터가 플레이어 공격
-			if (genMonster->mGetHealth() > 0)
+				genMonster->mTakeDamage(player->getAttack());
+				std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했다잉." << std::endl;
+				std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었다잉." << std::endl;
+				std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
+				std::cin.get();
+
+				if (genMonster->mGetHealth() > 0)
+				{
+					player->TakeDamage(genMonster->mGetAttack());
+					std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했ekdld." << std::endl;
+					std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었ekdld." << std::endl;
+					std::cout << "현재 체력 : " << player->getHealth() << " / " << player->getMaxhealth() << std::endl;
+				}
+			}
+			else
 			{
-				player->TakeDamage(genMonster->mGetAttack());
-				std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했습니다." << std::endl;
-				std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
-				std::cout << "현재 체력 : " << player->getHealth() << " / " << player->getMaxhealth() << std::endl;
+				//	플레이어가 몬스터 공격
+				genMonster->mTakeDamage(player->getAttack());
+				std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
+				std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
+				std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
+				std::cin.get();
+
+				// 몬스터가 플레이어 공격
+				if (genMonster->mGetHealth() > 0)
+				{
+					player->TakeDamage(genMonster->mGetAttack());
+					std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했습니다." << std::endl;
+					std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
+					std::cout << "현재 체력 : " << player->getHealth() << " / " << player->getMaxhealth() << std::endl;
+				}
 			}
 		}
 	}
@@ -210,6 +231,7 @@ Monster* GameManager::GenMonster(int playerLevel)
 	Monsters.push_back(new Goblin(playerLevel));
 	Monsters.push_back(new Orc(playerLevel));
 	Monsters.push_back(new Troll(playerLevel));
+	Monsters.push_back(new Boss(playerLevel));
 
 	if (playerLevel < 4)
 	{
@@ -227,10 +249,15 @@ Monster* GameManager::GenMonster(int playerLevel)
 			result = new StrongMonster(result);
 		}
 	}
-	else
+	else if (playerLevel < 9)
 	{
 		// 오크, 트롤 (2,3)
 		int idx = rand() % 2 + 2;	// 0 ~ 1
+		result = Monsters[idx];
+	}
+	else if (playerLevel == 10)
+	{
+		int idx = 4;
 		result = Monsters[idx];
 	}
 
