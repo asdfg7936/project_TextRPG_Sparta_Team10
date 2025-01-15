@@ -7,6 +7,10 @@ class Monster;
 class GameManager
 {
 private:
+	int wolfCount = 0;
+	int goblinCount = 0;
+	int orcCount = 0;
+	int trollCount = 0;
 	static GameManager* instance;
 
 	std::ofstream logFile;	// Output File Stream
@@ -54,6 +58,18 @@ public:
 			instance = nullptr;
 			std::cout << "[ Delete Game Manager ]" << std::endl;
 		}
+	}
+
+	void displayKillCounts() const {
+		std::cout << std::endl;
+		std::cout << "------------------" << std::endl;
+		std::cout << "현재까지 잡은 몬스터 수" << std::endl;
+		std::cout << "늑대 : " << wolfCount << std::endl;
+		std::cout << "고블린 : " << goblinCount << std::endl;
+		std::cout << "오크 : " << orcCount << std::endl;
+		std::cout << "트롤 : " << trollCount << std::endl;
+		std::cout << "------------------" << std::endl;
+		std::cout << std::endl;
 	}
 
 	void Log(const std::string& message);	// Log 출력 및 기록
