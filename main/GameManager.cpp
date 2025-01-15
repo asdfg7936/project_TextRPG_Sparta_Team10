@@ -103,6 +103,7 @@ bool GameManager::Update()
 	if (2 == Select)
 	{
 		player->displayStatus();
+		displayKillCounts();
 	}
 
 	if (3 == Select)
@@ -147,6 +148,22 @@ bool GameManager::Update()
 	// 몬스터가 죽은 경우
 	if (genMonster->mGetHealth() <= 0)
 	{
+		if (genMonster->mGetName() == "늑대") 
+		{
+			wolfCount++;
+		}
+		else if (genMonster->mGetName() == "고블린")
+		{
+			goblinCount++;
+		}
+		else if (genMonster->mGetName() == "오크")
+		{
+			orcCount++;
+		}
+		else if (genMonster->mGetName() == "트롤")
+		{
+			trollCount++;
+		}
 		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
 		std::cin.get();
 		std::cout << "다음 보상을 획득했습니다." << std::endl;
