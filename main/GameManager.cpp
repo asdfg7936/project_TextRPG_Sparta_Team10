@@ -82,6 +82,7 @@ bool GameManager::Update()
 	std::cout << "1번 : 상점" << endl;
 	std::cout << "2번 : 상태 확인" << endl;
 	std::cout << "3번 : 전투 시작" << endl;
+	std::cout << "9번 : 전투 종료" << endl;
 	std::cout << "------------------" << endl;
 	std::cout << std::endl;
 	std::cout << "다음 행동을 선택하세요 : ";
@@ -142,6 +143,12 @@ bool GameManager::Update()
 				std::cout << "현재 체력 : " << player->getHealth() << " / " << player->getMaxhealth() << std::endl;
 			}
 		}
+	}
+	if (9 == Select)
+	{
+		player->setHealth(0);
+		std::cout << "게임을 종료합니다." << endl;
+		return false;
 	}
 
 	// 몬스터가 죽은 경우
@@ -227,12 +234,15 @@ void GameManager::Progress()
 {
 	// 게임 종료 조건 : Player 사망 또는 플레이어의 레벨이 10 미만일때
 	bool bPlayerAlive = true;
-	while (bPlayerAlive || Character::getInstance()->getLevel() < 10)
+	while (bPlayerAlive)
 	{
 		bPlayerAlive = Update();
 	}
-
 	// 게임종료 로직 수행
+	if (!bPlayerAlive)
+	{
+		std::cout << "플레이어가 사망했습니다." << std::endl;
+	}
 
 }
 #pragma endregion

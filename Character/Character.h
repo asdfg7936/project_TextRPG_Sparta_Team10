@@ -16,7 +16,7 @@ private:
     double experience;
     double experienceToNestLevel;
     int gold;
-    //vector<item> inventory;
+    //vector<Item> inventory;
 
     Character(string name);
 
@@ -32,12 +32,14 @@ public:
     int getHealth() const;
     int getLevel() const;
     void setHealth(int health);
+    void setMaxHealth(int maxHealth);
     bool IsAlive();
     int getAttack() const;
     int getGold() const;
     void setGold(int gold);
     void TakeDamage(int damage);
     void setExperience(double experience);
+    void setAttack(int attack);
     double getExperience() const;
     double getExperienceToNextLevel() const;
     string getName() const;
