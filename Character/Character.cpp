@@ -8,7 +8,7 @@ Character* Character::instance = nullptr;
 
 Character::Character(string name)
 {
-	name = name;
+	this->name = name;
 	this->level = 1;
 	this->attack = 30;
 	this->health = 200;
@@ -16,6 +16,16 @@ Character::Character(string name)
 	this->experience = 0;
 	this->experienceToNestLevel = 100;
 	this->gold = 0;
+	Stuff healingPotion;
+	Stuff strangePotion;
+	healingPotion.Item = new HealthPotion();
+	strangePotion.Item = new StrangePotion();
+	healingPotion.ItemName = healingPotion.Item->getName();
+	strangePotion.ItemName = strangePotion.Item->getName();
+	healingPotion.ItemQuantity = 3;
+	strangePotion.ItemQuantity = 3;
+	this->inventory.push_back(healingPotion);
+	this->inventory.push_back(strangePotion);
 }
 
 Character* Character::getInstance(string name)
@@ -54,6 +64,8 @@ void Character::levelUp()
 
 		cout << "------------------" << endl;
 		cout << "Level Up!" << endl;
+		cout << "최대 체력 "<< level * 20 << " 상승!" << endl;
+		cout << "공격력 " << level * 5 << " 상승!" << endl;
 		cout << "------------------" << endl;
 		std::cout << endl;
 	}
@@ -136,18 +148,32 @@ string Character::getName() const
 
 void Character::usePotion()
 {
-	if(this->health < this->health/50 && HealthPotion->getQuantity() > 0)
+	if(this->health < this->health/50 && inventory[0].ItemQuantity > 0)
 	{
-		HealthPotion->use();
+		inventory[0].Item->use(instance);
+		inventory[0].ItemQuantity--;
 	}
-	else if(StrangePotion->getQuantity() > 0)
+	else if(inventory[1].ItemQuantity > 0)
 	{
-		StrangePotion->use();
+		int per = rand() % 3;
+		if (per == 2)
+		{
+			inventory[1].Item->use(instance);
+			inventory[1].ItemQuantity--;
+		}
 	}
-	else
+}
+
+void Character::showInventory()
+{
+	cout << "-----------------------------------" << endl;
+	cout << "보유 중인 아이템 목록" << endl;
+
+	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << "보유 중인 물약이 없습니다." << endl;
+		cout << i + 1 << "번 칸 : " << inventory[i].ItemName << " -보유량 : " << inventory[i].ItemQuantity << "개-" << endl;
 	}
+	cout << "-----------------------------------" << endl;
 }
 
 void Character::setExperience(double experience)
@@ -158,5 +184,3 @@ int Character::getLevel() const
 {
 	return this->level;
 }
-
-
