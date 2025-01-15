@@ -8,6 +8,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "StrongMonster.h"
+#include "Boss.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -30,12 +31,11 @@ void GameManager::Init()
 	std::cout << "플레이어의 이름을 입력하세요 : ";
 	std::cin >> playerName;
 	Character::getInstance(playerName);
-
 	std::cout << "\n\n\n";
 
 	// 초반 스토리 출력
 	FRM->OpenFile(L"../story/intro.txt");
-	FRM->PrintLineAll();
+	FRM->PrintLineAll(false);
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -44,7 +44,7 @@ void GameManager::Init()
 	Character::getInstance()->levelUp();
 
 	FRM->OpenFile(L"../story/intro2.txt");
-	FRM->PrintLine(0);
+	FRM->PrintLine(0,false);
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -103,6 +103,7 @@ bool GameManager::Update()
 
 	if (4 == Select)
 	{
+		bool bSeven = false, bFive = false, bTwo = false;
 		std::cout << "야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
 		//몬스터 스텟 출력
 		genMonster->mDisplayStatus();
@@ -113,9 +114,41 @@ bool GameManager::Update()
 		{
 			std::cin.get();  //  enter 치면 턴 넘기기
 
+
 			// 플레이어 물약 사용
 			player->usePotion();
 			
+			// 보스
+			if (genMonster->mGetName() == "오크 족장") 
+			{
+				int currentHealth = genMonster->mGetHealth();
+				int maxHealth = genMonster->mGetMaxHealth();
+
+				if (currentHealth == maxHealth)
+				{
+					std::cout << "보스 : 100퍼" << std::endl;
+				}
+				else if (currentHealth <= maxHealth * 0.75 && bSeven == false) 
+				{
+					std::cout << "보스 : 75퍼" << std::endl;
+					bSeven = true;
+				}
+				else if (currentHealth <= maxHealth * 0.5 && bFive == false) 
+				{
+					std::cout << "보스 : 50퍼" << std::endl;
+					bFive = true;
+				}
+				else if (currentHealth <= maxHealth * 0.25 && bTwo == false)
+				{
+					std::cout << "보스 : 25퍼" << std::endl;
+					bTwo = true;
+				}
+				else if (currentHealth <= 0)
+				{
+					std::cout << "보스 : 아이고야" << std::endl;
+				}
+
+			}
 			//	플레이어가 몬스터 공격
 			genMonster->mTakeDamage(player->getAttack());
 			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
@@ -210,6 +243,7 @@ Monster* GameManager::GenMonster(int playerLevel)
 	Monsters.push_back(new Goblin(playerLevel));
 	Monsters.push_back(new Orc(playerLevel));
 	Monsters.push_back(new Troll(playerLevel));
+	Monsters.push_back(new Boss(playerLevel));
 
 	if (playerLevel < 4)
 	{
@@ -227,10 +261,15 @@ Monster* GameManager::GenMonster(int playerLevel)
 			result = new StrongMonster(result);
 		}
 	}
-	else
+	else if (playerLevel < 9)
 	{
 		// 오크, 트롤 (2,3)
 		int idx = rand() % 2 + 2;	// 0 ~ 1
+		result = Monsters[idx];
+	}
+	else if (playerLevel == 10)
+	{
+		int idx = 4;
 		result = Monsters[idx];
 	}
 

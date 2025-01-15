@@ -9,9 +9,9 @@ Character* Character::instance = nullptr;
 Character::Character(string name)
 {
 	this->name = name;
-	this->level = 1;
-	this->attack = 30;
-	this->health = 200;
+	this->level = 10;
+	this->attack = 300;
+	this->health = 2000;
 	this->maxHealth = 200;
 	this->experience = 0;
 	this->experienceToNestLevel = 100;

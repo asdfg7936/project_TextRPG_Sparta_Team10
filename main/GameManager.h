@@ -77,8 +77,9 @@ public:
 	void Progress();	// 게임 로직
 	bool Update();		// 게임 데이터 업데이트
 	void Destroy();		// 마무리 정리
+	int currentHealth;
+	int maxHealth;
 
 private:
 	Monster* GenMonster(int playerLevel);
-
 };
