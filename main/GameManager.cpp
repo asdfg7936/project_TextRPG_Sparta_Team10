@@ -8,8 +8,11 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "StrongMonster.h"
+#include "Boss.h"
+#include "Store.h"
 
 GameManager* GameManager::instance = nullptr;
+Store* Store::instance = nullptr;
 
 #pragma region Constructor
 void GameManager::Log(const std::string& message)
@@ -25,12 +28,12 @@ void GameManager::Log(const std::string& message)
 
 void GameManager::Init()
 {
+	Store::getInstance();
 	// 플레이어 이름 입력
 	std::string playerName = "";
 	std::cout << "플레이어의 이름을 입력하세요 : ";
 	std::cin >> playerName;
 	Character::getInstance(playerName);
-
 	std::cout << "\n\n\n";
 
 	// 초반 스토리 출력
@@ -38,13 +41,19 @@ void GameManager::Init()
 	FRM->PrintLineAll();
 	FRM->CloseFile();
 
+	// 초반 스토리 2
+	FRM->OpenFile(L"../story/intro2.txt");
+	FRM->PrintLineAll(false);
+	FRM->CloseFile();
+
 	std::cout << "\n\n\n";
 
 	// 플레이어 레벨 2로 설정하고 시작
 	Character::getInstance()->levelUp();
 
-	FRM->OpenFile(L"../story/intro2.txt");
-	FRM->PrintLine(0);
+	//초반 스토리 3
+	FRM->OpenFile(L"../story/intro3.txt");
+	FRM->PrintLineAll(false);
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -62,6 +71,7 @@ void GameManager::Init()
 bool GameManager::Update()
 {
 	Character* player = Character::getInstance();
+	Store* store = Store::getInstance();
 	
 	//몬스터 소환
 	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
@@ -84,10 +94,42 @@ bool GameManager::Update()
 	if (1 == Select)
 	{
 		// 아이템 목록 출력
+		store->showList();
+		int storeSelect = 0;
+		std::cout << "1번 : 아이템 구매" << std::endl;
+		std::cout << "2번 : 아이템 판매" << std::endl;
+		std::cout << "3번 : 상점 나가기" << std::endl;
+		std::cout << std::endl;
+		std::cout << "다음 행동을 선택하세요 : ";
+		std::cin >> storeSelect;
+		std::cout << std::endl;
 
 		// 아이템 선택 및 구매
-
+		if (storeSelect == 1)
+		{
+			store->showList();
+			std::cout << "구매하고자 하는 아이템의 번호를 입력해주세요";
+			int buySelect = 0;
+			std::cin >> buySelect;
+			store->buyStuff(buySelect);
+			std::cout << std::endl;
+		}
+		else if (storeSelect == 2)
+		{
+			store->showList();
+			player->showInventory();
+			std::cout << "판매하고자 하는 아이템의 번호를 입력해주세요";
+			int sellSelect = 0;
+			std::cin >> sellSelect;
+			store->sellStuff(sellSelect);
+			std::cout << std::endl;
+		}
 		// 구매 완료 후 상점 탈출
+		else if (storeSelect == 3)
+		{
+			Select = 3;
+		}
+		
 	}
 
 	if (2 == Select)
@@ -104,11 +146,12 @@ bool GameManager::Update()
 	if (4 == Select)
 	{
 		std::cout << "야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
+
 		//몬스터 스텟 출력
 		genMonster->mDisplayStatus();
 		std::cin.get();
+
 		// 전투
-		// 몬스터의 체력이 0 초과 이고 플레이어가 살아있을 때
 		while (genMonster->mGetHealth() > 0 && player->IsAlive())
 		{
 			std::cin.get();  //  enter 치면 턴 넘기기
@@ -121,6 +164,14 @@ bool GameManager::Update()
 			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
 			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
 			std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
+
+			// 보스
+			if (genMonster->mGetName() == "오크 족장")
+			{
+				float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
+				std::cout << "( Boss HP " << per << "% )\n\n";
+				static_cast<Boss*>(genMonster)->SoundEffect(per);
+			}
 			std::cin.get();
 
 			// 몬스터가 플레이어 공격
@@ -210,6 +261,7 @@ Monster* GameManager::GenMonster(int playerLevel)
 	Monsters.push_back(new Goblin(playerLevel));
 	Monsters.push_back(new Orc(playerLevel));
 	Monsters.push_back(new Troll(playerLevel));
+	Monsters.push_back(new Boss(playerLevel));
 
 	if (playerLevel < 4)
 	{
@@ -227,10 +279,15 @@ Monster* GameManager::GenMonster(int playerLevel)
 			result = new StrongMonster(result);
 		}
 	}
-	else
+	else if (playerLevel < 9)
 	{
 		// 오크, 트롤 (2,3)
 		int idx = rand() % 2 + 2;	// 0 ~ 1
+		result = Monsters[idx];
+	}
+	else if (playerLevel == 10)
+	{
+		int idx = 4;
 		result = Monsters[idx];
 	}
 
@@ -250,7 +307,9 @@ void GameManager::Progress()
 	// 게임종료 로직 수행
 	if (!bPlayerAlive)
 	{
-		std::cout << "플레이어가 사망했습니다." << std::endl;
+		FRM->OpenFile(L"../story/Dead.txt");
+		FRM->PrintLineAll();
+		FRM->CloseFile();
 	}
 
 }

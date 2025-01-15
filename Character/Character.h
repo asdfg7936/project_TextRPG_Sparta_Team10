@@ -51,6 +51,7 @@ public:
     double getExperience() const;
     double getExperienceToNextLevel() const;
     string getName() const;
+    Stuff& getItem(int idx);
 
     // 물약사용
     void usePotion();

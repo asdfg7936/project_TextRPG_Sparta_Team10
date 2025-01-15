@@ -59,5 +59,5 @@ public:
 	void PrintLineAll(bool bTypeEffect = true);		// lineContainer 에 들어있는 내용을 전부 출력한다.
 	void CloseFile();
 
-	void typingEffect(const std::wstring& text, int delay = 50);
+	void typingEffect(const std::wstring& text, int delay = 30);
 };
