@@ -139,6 +139,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Orc.cpp" />
+    <ClCompile Include="Store.cpp" />
     <ClCompile Include="StrangePotion.cpp" />
     <ClCompile Include="Troll.cpp" />
     <ClCompile Include="Wolf.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
+    <ClInclude Include="Store.h" />
     <ClInclude Include="StrangePotion.h" />
     <ClInclude Include="StrongMonster.h" />
     <ClInclude Include="Troll.h" />
