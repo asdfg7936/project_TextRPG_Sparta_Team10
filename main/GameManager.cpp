@@ -14,17 +14,18 @@
 GameManager* GameManager::instance = nullptr;
 Store* Store::instance = nullptr;
 
-#pragma region Constructor
-void GameManager::Log(const std::string& message)
+void GameManager::displayKillCounts() const
 {
-	if (logFile.is_open()) 
 	{
-		logFile << message << std::endl;
+		std::cout << "\n------------------" << std::endl;
+		std::cout << "현재까지 잡은 몬스터 수" << std::endl;
+		std::cout << "늑대 : " << wolfCount << std::endl;
+		std::cout << "고블린 : " << goblinCount << std::endl;
+		std::cout << "오크 : " << orcCount << std::endl;
+		std::cout << "트롤 : " << trollCount << std::endl;
+		std::cout << "------------------\n" << std::endl;
 	}
-	std::cout << message << std::endl;
 }
-#pragma endregion
-
 
 void GameManager::Init()
 {
@@ -38,7 +39,7 @@ void GameManager::Init()
 
 	// 초반 스토리 출력
 	FRM->OpenFile(L"../story/intro.txt");
-	FRM->PrintLineAll();
+	FRM->PrintLineAll(false);
 	FRM->CloseFile();
 
 	// 초반 스토리 2
@@ -55,8 +56,6 @@ void GameManager::Init()
 	FRM->OpenFile(L"../story/intro3.txt");
 	FRM->PrintLineAll(false);
 	FRM->CloseFile();
-
-	std::cout << "\n\n\n";
 }
 
 /// <summary>
@@ -77,6 +76,7 @@ bool GameManager::Update()
 	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
 	
 	int Select = 0;
+	std::cout << "\n\n▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽▽\n\n";
 	std::cout << "------------------" << endl;
 	std::cout << "1번 : 상점" << endl;
 	std::cout << "2번 : 상태 확인" << endl;
@@ -87,9 +87,7 @@ bool GameManager::Update()
 	std::cout << std::endl;
 	std::cout << "다음 행동을 선택하세요 : ";
 	std::cin >> Select;
-	std::cout << endl;
-	
-	
+
 	// 상점을 들리게 된다면 -> 템 사는거 내가 선택해서 구매 (템 : 물약, 수상한 물약)
 	if (1 == Select)
 	{
@@ -108,7 +106,7 @@ bool GameManager::Update()
 		if (storeSelect == 1)
 		{
 			store->showList();
-			std::cout << "구매하고자 하는 아이템의 번호를 입력해주세요";
+			std::cout << "구매하고자 하는 아이템의 번호를 입력해주세요 : ";
 			int buySelect = 0;
 			std::cin >> buySelect;
 			store->buyStuff(buySelect);
@@ -118,7 +116,7 @@ bool GameManager::Update()
 		{
 			store->showList();
 			player->showInventory();
-			std::cout << "판매하고자 하는 아이템의 번호를 입력해주세요";
+			std::cout << "판매하고자 하는 아이템의 번호를 입력해주세요 : ";
 			int sellSelect = 0;
 			std::cin >> sellSelect;
 			store->sellStuff(sellSelect);
@@ -145,7 +143,9 @@ bool GameManager::Update()
 
 	if (4 == Select)
 	{
-		std::cout << "야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
+		GameManager::setConsoleColor(4);
+		std::cout << "\n야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
+		GameManager::setConsoleColor(7);
 
 		//몬스터 스텟 출력
 		genMonster->mDisplayStatus();

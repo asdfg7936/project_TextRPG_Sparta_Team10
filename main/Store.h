@@ -50,28 +50,3 @@ public:
 	void sellStuff(int idx);
 	void showList();
 };
-
-/*
-	vector<Stuff> inventory;
-	idx_0 : heal
-	idx_1 : strange
-
-	구조체
-		member_Item
-		member_int cnt
-
-	struct Stuff
-	{
-		Item* item;	// 어떤 아이템?
-		int cnt;	// 아이템 개수
-	};
-
-	int main()
-	{
-		Stuff s;
-		s.item->getName();
-		s.item->getQuantity();
-		s.cnt;
-	}
-*/
-

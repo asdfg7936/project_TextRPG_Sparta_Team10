@@ -25,7 +25,7 @@ private:
     double experience;
     double experienceToNestLevel;
     int gold;
-    vector<Stuff> inventory;
+    vector<Stuff*> inventory;
 
     Character(string name);
 
@@ -51,7 +51,7 @@ public:
     double getExperience() const;
     double getExperienceToNextLevel() const;
     string getName() const;
-    Stuff& getItem(int idx);
+    Stuff* getItem(int idx);
 
     // 물약사용
     void usePotion();
