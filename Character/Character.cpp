@@ -136,17 +136,18 @@ string Character::getName() const
 
 void Character::usePotion()
 {
-	// if(체력이 50% 이하면 && 체력 물약 소지하고 있으면)
-	// {
-	//	체력 물약을 사용한다.
-	// }
-	// else if(수상한 물약을 소지하고 있으면)
-	// {
-	//	30% 확률로 사용
-	// }
-	// else
-	// {
-	// }
+	if(this->health < this->health/50 && HealthPotion->getQuantity() > 0)
+	{
+		HealthPotion->use();
+	}
+	else if(StrangePotion->getQuantity() > 0)
+	{
+		StrangePotion->use();
+	}
+	else
+	{
+		cout << "보유 중인 물약이 없습니다." << endl;
+	}
 }
 
 void Character::setExperience(double experience)
