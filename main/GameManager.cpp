@@ -14,17 +14,15 @@ GameManager* GameManager::instance = nullptr;
 #pragma region Constructor
 void GameManager::Log(const std::string& message)
 {
-	if (logFile.is_open()) {
+	if (logFile.is_open()) 
+	{
 		logFile << message << std::endl;
 	}
 	std::cout << message << std::endl;
 }
 #pragma endregion
 
-/// <summary>
-/// 게임 시작전 초기화 해야하는 것들 추가
-/// ex) 플레이어 캐릭터 생성, 등...
-/// </summary>
+
 void GameManager::Init()
 {
 	// 플레이어 이름 입력
@@ -32,34 +30,18 @@ void GameManager::Init()
 	std::cout << "플레이어의 이름을 입력하세요 : ";
 	std::cin >> playerName;
 	Character::getInstance(playerName);
-	std::cout << playerName;	// debug
+
+	std::cout << "\n\n\n";
 
 	// 초반 스토리 출력
 	FileReaderManager* FRM = FileReaderManager::GetInstance();
-	FRM->OpenFile("../test.txt");
+	FRM->OpenFile(L"../story/intro.txt");
+	FRM->PrintLineAll();
 	FRM->CloseFile();
 
 	// 플레이어 레벨 2로 설정하고 시작
 	Character::getInstance()->levelUp();
 }
-
-/// <summary>
-/// 게임 로직
-/// 
-/// 한 턴동안 발생해야하는 모든 것
-///	ex)
-///		플레이어 입력 (공격? 스킬? 아이템? 상점?)
-///		플레이어의 입력값에 따른 상호작용
-///			case1 : 플레이어가 몬스터를 공격했다.
-///			case2 : 플레이어가 스킬을쓴다 -> MP 부족하다
-///			case3 : 아이템을 사용했다 -> 그에따른 효과
-///			case4 : 상점 NPC 만났다 -> 아이템 사야하는데 돈이 부족하다. 구매했다.
-///		플레이어 or 몬스터가 죽음
-///			case1 : 플레이어 죽음 -> 게임 끝 (로그라이크)
-///			case2 : 몬스터가 죽었다 -> 경험치, 아이템 드랍 -> 레벨업 or 장비를 갈아낄수도있고 or 이벤트발생
-///		목적지 or 다음 진행을 위한 선택 
-/// 
-/// </summary>
 
 /// <summary>
 /// 
@@ -103,6 +85,7 @@ bool GameManager::Update()
 	if (2 == Select)
 	{
 		player->displayStatus();
+		displayKillCounts();
 	}
 
 	if (3 == Select)
@@ -147,6 +130,22 @@ bool GameManager::Update()
 	// 몬스터가 죽은 경우
 	if (genMonster->mGetHealth() <= 0)
 	{
+		if (genMonster->mGetName() == "늑대") 
+		{
+			wolfCount++;
+		}
+		else if (genMonster->mGetName() == "고블린")
+		{
+			goblinCount++;
+		}
+		else if (genMonster->mGetName() == "오크")
+		{
+			orcCount++;
+		}
+		else if (genMonster->mGetName() == "트롤")
+		{
+			trollCount++;
+		}
 		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
 		std::cin.get();
 		std::cout << "다음 보상을 획득했습니다." << std::endl;
@@ -174,6 +173,11 @@ bool GameManager::Update()
 	return player->IsAlive();
 }
 
+void GameManager::Destroy()
+{
+	GameManager::DestroyInstance();
+}
+
 /// <summary>
 /// 
 /// container = [ 늑대, 고블린, 오크, 트롤 ]
@@ -182,7 +186,6 @@ bool GameManager::Update()
 /// 플레이어 레벨 1 ~ 4  : 늑대, 고블린
 /// 플레이어 레벨 5 ~ 8 : (늑대, 고블린) + 강한, 오크
 /// 플레이어 레벨 9 ~ 10 : 오크, 트롤
-/// 
 /// 
 /// </summary>
 Monster* GameManager::GenMonster(int playerLevel)
