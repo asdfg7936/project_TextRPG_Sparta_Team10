@@ -1,4 +1,5 @@
 #include "StrangePotion.h"
+#include "../Character/Character.h"
 
 StrangePotion::StrangePotion()
 {
@@ -28,7 +29,7 @@ void StrangePotion::use(Character* character)
 	}
 	else
 	{
-		character->setMaxHealth(character->geMaxtHealth() + 50);
+		character->setMaxHealth(character->getMaxhealth() + 50);
 		std::cout << "최대 체력이 50 상승했습니다." << std::endl;
 	}
 }

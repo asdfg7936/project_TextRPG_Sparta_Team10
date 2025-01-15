@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 
-
 using namespace std;
 class Character 
 {
@@ -16,7 +15,7 @@ private:
     double experience;
     double experienceToNestLevel;
     int gold;
-    //vector<Item> inventory;
+    //vector<Stuff> inventory;
 
     Character(string name);
 
@@ -27,7 +26,6 @@ public:
     static Character* getInstance(string name = "");
     void displayStatus();
     void levelUp();
-    //void useItem(int index);
     int getMaxhealth() const;
     int getHealth() const;
     int getLevel() const;
@@ -43,6 +41,9 @@ public:
     double getExperience() const;
     double getExperienceToNextLevel() const;
     string getName() const;
+
+    // 물약사용
+    void usePotion();
 };
 
 

@@ -117,16 +117,9 @@ bool GameManager::Update()
 		{
 			std::cin.get();  //  enter 치면 턴 넘기기
 
-			// if(체력이 50% 이하면 && 체력 물약 소지하고 있으면)
-			// {
-			//	체력 물약을 사용한다.
-			// }
-			// else if(수상한 물약을 소지하고 있으면)
-			// {
-			//	30% 확률로 사용
-			// }
-			// else
-			// {
+			// 플레이어 물약 사용
+			//player->usePotion();
+			
 			//	플레이어가 몬스터 공격
 			genMonster->mTakeDamage(player->getAttack());
 			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
