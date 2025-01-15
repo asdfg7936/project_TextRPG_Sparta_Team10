@@ -9,8 +9,10 @@
 #include "Troll.h"
 #include "StrongMonster.h"
 #include "Boss.h"
+#include "Store.h"
 
 GameManager* GameManager::instance = nullptr;
+Store* Store::instance = nullptr;
 
 #pragma region Constructor
 void GameManager::Log(const std::string& message)
@@ -26,6 +28,7 @@ void GameManager::Log(const std::string& message)
 
 void GameManager::Init()
 {
+	Store::getInstance();
 	// 플레이어 이름 입력
 	std::string playerName = "";
 	std::cout << "플레이어의 이름을 입력하세요 : ";
@@ -68,6 +71,7 @@ void GameManager::Init()
 bool GameManager::Update()
 {
 	Character* player = Character::getInstance();
+	Store* store = Store::getInstance();
 	
 	//몬스터 소환
 	Monster* genMonster = GenMonster(Character::getInstance()->getLevel());
@@ -90,10 +94,42 @@ bool GameManager::Update()
 	if (1 == Select)
 	{
 		// 아이템 목록 출력
+		store->showList();
+		int storeSelect = 0;
+		std::cout << "1번 : 아이템 구매" << std::endl;
+		std::cout << "2번 : 아이템 판매" << std::endl;
+		std::cout << "3번 : 상점 나가기" << std::endl;
+		std::cout << std::endl;
+		std::cout << "다음 행동을 선택하세요 : ";
+		std::cin >> storeSelect;
+		std::cout << std::endl;
 
 		// 아이템 선택 및 구매
-
+		if (storeSelect == 1)
+		{
+			store->showList();
+			std::cout << "구매하고자 하는 아이템의 번호를 입력해주세요";
+			int buySelect = 0;
+			std::cin >> buySelect;
+			store->buyStuff(buySelect);
+			std::cout << std::endl;
+		}
+		else if (storeSelect == 2)
+		{
+			store->showList();
+			player->showInventory();
+			std::cout << "판매하고자 하는 아이템의 번호를 입력해주세요";
+			int sellSelect = 0;
+			std::cin >> sellSelect;
+			store->sellStuff(sellSelect);
+			std::cout << std::endl;
+		}
 		// 구매 완료 후 상점 탈출
+		else if (storeSelect == 3)
+		{
+			Select = 3;
+		}
+		
 	}
 
 	if (2 == Select)
