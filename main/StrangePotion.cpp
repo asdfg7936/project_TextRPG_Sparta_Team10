@@ -32,4 +32,6 @@ void StrangePotion::use(Character* character)
 		character->setMaxHealth(character->getMaxhealth() + 50);
 		std::cout << "최대 체력이 50 상승했습니다." << std::endl;
 	}
+
+	std::cout << "\n";
 }
