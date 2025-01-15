@@ -1,4 +1,5 @@
 #include "StrangePotion.h"
+#include "../Character/Character.h"
 
 StrangePotion::StrangePotion()
 {
