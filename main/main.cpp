@@ -8,11 +8,12 @@ int main()
     // Manager Set
     GameManager* GM = GameManager::GetInstance();
 
+    // GameLogic
     GM->Init();         // Init
     GM->Progress();     // Update
+    GM->Destroy();      // Clean
     
     // Manager Destroy
-    GameManager::DestroyInstance();
     FileReaderManager::DestroyInstance();
 
     return 0;
