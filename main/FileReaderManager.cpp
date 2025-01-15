@@ -66,5 +66,6 @@ void FileReaderManager::PrintLineAll()
 
 void FileReaderManager::CloseFile()
 {
+	lineContainer.clear();
 	readFile.close();
 }
