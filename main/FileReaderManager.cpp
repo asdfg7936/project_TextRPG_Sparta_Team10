@@ -1,5 +1,8 @@
 #include "FileReaderManager.h"
 
+#include <thread> // for std::this_thread::sleep_for
+#include <chrono> // for std::chrono::milliseconds
+
 FileReaderManager* FileReaderManager::instance = nullptr;
 
 /// <summary>
@@ -53,14 +56,16 @@ bool FileReaderManager::OpenFile(std::wstring filePath)
 
 void FileReaderManager::PrintLine(int idx)
 {
-	std::wcout << lineContainer[idx];
+	//std::wcout << lineContainer[idx];
+	typingEffect(lineContainer[idx]);
 }
 
 void FileReaderManager::PrintLineAll()
 {
 	for (int i = 0; i < lineContainer.size(); ++i)
 	{
-		std::wcout << lineContainer[i] << std::endl;
+		typingEffect(lineContainer[i]);
+		std::cout << std::endl;
 	}
 }
 
@@ -68,4 +73,12 @@ void FileReaderManager::CloseFile()
 {
 	lineContainer.clear();
 	readFile.close();
+}
+
+void FileReaderManager::typingEffect(const std::wstring& text, int delay)
+{
+	for (wchar_t ch : text) {
+		std::wcout << ch << std::flush; // flush를 사용하여 즉각 출력
+		std::this_thread::sleep_for(std::chrono::milliseconds(delay)); // 딜레이
+	}
 }

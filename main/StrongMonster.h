@@ -42,7 +42,7 @@ public:
 
     // 공격력
     int mGetAttack() const override {
-        return 3000 + baseMonster->mGetAttack() + attackBonus;
+        return baseMonster->mGetAttack() + attackBonus;
     }
 
     // 경험치
