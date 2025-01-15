@@ -103,57 +103,33 @@ bool GameManager::Update()
 
 	if (4 == Select)
 	{
-		bool bSeven = false, bFive = false, bTwo = false;
 		std::cout << "야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
+
 		//몬스터 스텟 출력
 		genMonster->mDisplayStatus();
 		std::cin.get();
+
 		// 전투
-		// 몬스터의 체력이 0 초과 이고 플레이어가 살아있을 때
 		while (genMonster->mGetHealth() > 0 && player->IsAlive())
 		{
 			std::cin.get();  //  enter 치면 턴 넘기기
 
-
 			// 플레이어 물약 사용
 			player->usePotion();
 			
-			// 보스
-			if (genMonster->mGetName() == "오크 족장") 
-			{
-				int currentHealth = genMonster->mGetHealth();
-				int maxHealth = genMonster->mGetMaxHealth();
-
-				if (currentHealth == maxHealth)
-				{
-					std::cout << "보스 : 100퍼" << std::endl;
-				}
-				else if (currentHealth <= maxHealth * 0.75 && bSeven == false) 
-				{
-					std::cout << "보스 : 75퍼" << std::endl;
-					bSeven = true;
-				}
-				else if (currentHealth <= maxHealth * 0.5 && bFive == false) 
-				{
-					std::cout << "보스 : 50퍼" << std::endl;
-					bFive = true;
-				}
-				else if (currentHealth <= maxHealth * 0.25 && bTwo == false)
-				{
-					std::cout << "보스 : 25퍼" << std::endl;
-					bTwo = true;
-				}
-				else if (currentHealth <= 0)
-				{
-					std::cout << "보스 : 아이고야" << std::endl;
-				}
-
-			}
 			//	플레이어가 몬스터 공격
 			genMonster->mTakeDamage(player->getAttack());
 			std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
 			std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
 			std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
+
+			// 보스
+			if (genMonster->mGetName() == "오크 족장")
+			{
+				float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
+				std::cout << "( Boss HP " << per << "% )\n\n";
+				static_cast<Boss*>(genMonster)->SoundEffect(per);
+			}
 			std::cin.get();
 
 			// 몬스터가 플레이어 공격
