@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 
-//#include "../main/Item.h"
-
 using namespace std;
 class Character 
 {
@@ -28,7 +26,6 @@ public:
     static Character* getInstance(string name = "");
     void displayStatus();
     void levelUp();
-    //void useItem(int index);
     int getMaxhealth() const;
     int getHealth() const;
     int getLevel() const;

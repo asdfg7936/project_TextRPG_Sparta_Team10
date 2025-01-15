@@ -1,10 +1,14 @@
 #include "Character.h"
 
+#include "../main/Item.h"
+#include "../main/HealthPotion.h"
+#include "../main/StrangePotion.h"
+
 Character* Character::instance = nullptr;
 
 Character::Character(string name)
 {
-	this->name = name;
+	name = name;
 	this->level = 1;
 	this->attack = 30;
 	this->health = 200;
