@@ -70,8 +70,9 @@ bool GameManager::Update()
 	std::cout << "------------------" << endl;
 	std::cout << "1번 : 상점" << endl;
 	std::cout << "2번 : 상태 확인" << endl;
-	std::cout << "3번 : 전투 시작" << endl;
-	std::cout << "9번 : 전투 종료" << endl;
+	std::cout << "3번 : 인벤토리 확인" << endl;
+	std::cout << "4번 : 전투 시작" << endl;
+	std::cout << "9번 : 게임 종료" << endl;
 	std::cout << "------------------" << endl;
 	std::cout << std::endl;
 	std::cout << "다음 행동을 선택하세요 : ";
@@ -97,6 +98,11 @@ bool GameManager::Update()
 
 	if (3 == Select)
 	{
+		player->showInventory();
+	}
+
+	if (4 == Select)
+	{
 		std::cout << "야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
 		//몬스터 스텟 출력
 		genMonster->mDisplayStatus();
@@ -108,7 +114,7 @@ bool GameManager::Update()
 			std::cin.get();  //  enter 치면 턴 넘기기
 
 			// 플레이어 물약 사용
-			//player->usePotion();
+			player->usePotion();
 			
 			//	플레이어가 몬스터 공격
 			genMonster->mTakeDamage(player->getAttack());

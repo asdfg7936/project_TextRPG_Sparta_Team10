@@ -166,14 +166,16 @@ void Character::usePotion()
 
 void Character::showInventory()
 {
-	cout << "-----------------------------------" << endl;
+	cout << "-----------------------------------------" << endl;
 	cout << "보유 중인 아이템 목록" << endl;
 
 	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << i + 1 << "번 칸 : " << inventory[i].ItemName << " -보유량 : " << inventory[i].ItemQuantity << "개-" << endl;
+		cout << i + 1 << "번 칸 : " << inventory[i].ItemName << " - 보유량 : " 
+			
+			<< inventory[i].ItemQuantity << "개 -" << endl;
 	}
-	cout << "-----------------------------------" << endl;
+	cout << "-----------------------------------------" << endl;
 }
 
 void Character::setExperience(double experience)
