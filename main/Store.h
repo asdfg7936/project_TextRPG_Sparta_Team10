@@ -4,8 +4,8 @@
 
 enum EItem
 {
-	Heal = 1,
-	Strange,
+	Heal = 0,
+	Strange = 1,
 };
 
 class Store
@@ -19,8 +19,11 @@ private:
 
 	}
 
+	Store(const Store&) = delete;
+	Store& operator = (const Store&) = delete;
+
 public:
-	Store* getInstance()
+	static Store* getInstance()
 	{
 		if (nullptr == instance)
 		{
@@ -45,6 +48,7 @@ private:
 public:
 	void buyStuff(int idx);
 	void sellStuff(int idx);
+	void showList();
 };
 
 /*

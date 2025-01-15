@@ -146,6 +146,11 @@ string Character::getName() const
 	return this->name;
 }
 
+Stuff& Character::getItem(int idx)
+{
+	return inventory[idx];
+}
+
 void Character::usePotion()
 {
 	if(this->health < this->health/50 && inventory[0].ItemQuantity > 0)
@@ -168,6 +173,7 @@ void Character::showInventory()
 {
 	cout << "-----------------------------------------" << endl;
 	cout << "보유 중인 아이템 목록" << endl;
+	cout << "골드 : " << this->gold << endl;
 
 	for (int i = 0; i < inventory.size(); i++)
 	{
