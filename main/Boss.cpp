@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include <string>
 #include <iostream>
+#include "FileReaderManager.h"
 
 Boss::Boss(int level)
 	:Monster(level,
@@ -28,7 +29,9 @@ void Boss::SoundEffect(float per)
 	{
 		// comment
 		std::cout << "===================" << std::endl;
-		std::cout << "Hi" << std::endl;
+		FRM->OpenFile(L"../story/BossStart.txt");
+		FRM->PrintLineAll();
+		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
 		bMeet = false;
@@ -37,7 +40,9 @@ void Boss::SoundEffect(float per)
 	{
 		// comment
 		std::cout << "===================" << std::endl;
-		std::cout << "My health half left." << std::endl;
+		FRM->OpenFile(L"../story/Boss50.txt");
+		FRM->PrintLineAll();
+		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
 		bHpHalf = false;
@@ -46,7 +51,9 @@ void Boss::SoundEffect(float per)
 	{
 		// comment
 		std::cout << "===================" << std::endl;
-		std::cout << "I Almost Death" << std::endl;
+		FRM->OpenFile(L"../story/Boss20.txt");
+		FRM->PrintLineAll();
+		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
 		bAlmostDeath = false;
@@ -55,7 +62,9 @@ void Boss::SoundEffect(float per)
 	{
 		// comment
 		std::cout << "===================" << std::endl;
-		std::cout << "Bye" << std::endl;
+		FRM->OpenFile(L"../story/BossDead.txt");
+		FRM->PrintLineAll();
+		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
 		bDeath = false;
