@@ -6,9 +6,7 @@
 
 <img src="/img/readme_img.png" width="400">
 
-### 📌발표자료
-
-[PDF URL](https://github.com/Qussong/project_TextRPG_Sparta_Team10/blob/main/Text%20RPG%2010%EC%A1%B0.pdf)
+---
 
 ### 📌팀 구성 및 역할
 
@@ -20,12 +18,20 @@
 |문정수|팀원|캐릭터|
 |김연준|팀원|캐릭터|
 
+---
+### 📌발표자료
+
+[PDF URL](https://github.com/Qussong/project_TextRPG_Sparta_Team10/blob/main/Text%20RPG%2010%EC%A1%B0.pdf)<br>
+<img src="./img/ppt_main.png" width="400">
+
+---
+
 ### 📌기능구현_Essential
 
 UML 다이어그램 클래스 기능 구현
-<!--
-<img src="" width="">
--->
+<img src="./img/essential_uml.png" width="600">
+
+---
 
 ### 📌기능구현_Challenge
 
@@ -107,9 +113,14 @@ static void setConsoleColor(int color)
 }
 ```
 
+---
+
 ### 📌사용 환경 및 툴
 
 - OS : Windows
 - Language : Visual C++ 2022
 - IDE : Microsoft Visual Studio Community 2022 (64-bit) Version 17.9.7
 - Collab Tool : Notion ( [_Notion URL_](https://www.notion.so/teamsparta/2-1762dc3ef51481579ebef032d9cbeeb0) ), Discord, Zep
+
+---
+
