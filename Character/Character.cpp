@@ -42,14 +42,14 @@ Character* Character::getInstance(wstring name)
 
 void Character::displayStatus()
 {
-	cout << "\n------------------" << endl;
+	cout << "\n---------------------" << endl;
 	cout << "[ Status ]" << endl;
 	wcout << "Name : " << name << endl;
 	cout << "Level : " << level << endl;
 	cout << "Exp : " << experience << " / " << experienceToNestLevel << endl;
 	cout << "Health : " << health << " / " << maxHealth << endl;
 	cout << "Attack : " << attack << endl;
-	cout << "------------------\n" << endl;
+	cout << "---------------------\n" << endl;
 }
 void Character::levelUp()
 {
@@ -65,11 +65,11 @@ void Character::levelUp()
 		this->attack += level * 5;
 		this->experienceToNestLevel += experienceToNestLevel * 0.2;
 
-		cout << "------------------" << endl;
+		cout << "---------------------" << endl;
 		cout << "Level Up!" << endl;
 		cout << "최대 체력 "<< level * 20 << " 상승!" << endl;
 		cout << "공격력 " << level * 5 << " 상승!" << endl;
-		cout << "------------------" << endl;
+		cout << "---------------------" << endl;
 		std::cout << endl;
 	}
 	else
@@ -175,17 +175,17 @@ void Character::usePotion()
 
 void Character::showInventory()
 {
-	cout << "-----------------------------------------" << endl;
+	cout << "\n---------------------인벤토리---------------------" << endl;
 	cout << "보유 중인 아이템 목록" << endl;
 	cout << "골드 : " << this->gold << endl;
 
 	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << i + 1 << "번 칸 : " << inventory[i]->ItemName << " - 보유량 : " 
+		cout << i + 1 << "번 칸 : " << inventory[i]->ItemName << " - " 
 			
 			<< inventory[i]->ItemQuantity << "개 -" << endl;
 	}
-	cout << "-----------------------------------------" << endl;
+	cout << "--------------------------------------------------\n" << endl;
 }
 
 void Character::setExperience(double experience)
