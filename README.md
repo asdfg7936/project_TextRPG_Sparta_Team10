@@ -103,7 +103,7 @@ void FileReaderManager::typingEffect(const std::wstring& text, int delay)
 각기 다른 종류의 텍스트에 색상을 달리 적용함으로써, 사용자에게 보다 직관적이고 가독성 좋은 정보를 제공할 수 있게 되었습니다.<br> 
 이를 통해 스토리 진행 상황이나 중요 메시지를 효과적으로 강조할 수 있습니다.<br>
 
-<img src="./img/console_color_change.png" width="400">
+<img src="./img/console_color_change.png" width="300">
 
 ```cpp
 static void setConsoleColor(int color) 
