@@ -378,25 +378,27 @@ void GameManager::Intro()
 {
 	// 초반 스토리 출력
 	FRM->OpenFile(L"../story/intro.txt");
-	FRM->PrintLineAll(Character::getInstance()->getName(), false);
+	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
+	std::cin.get();
 
 	// 초반 스토리 2
 	FRM->OpenFile(L"../story/intro2.txt");
-	FRM->PrintLineAll(Character::getInstance()->getName(), false);
+	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
-
-	std::cout << "\n\n\n";
+	std::cin.get();
 
 	// 플레이어 레벨 2로 설정하고 시작
 	GameManager::setConsoleColor(EColor::YELLOW);
 	Character::getInstance()->levelUp();
 	GameManager::setConsoleColor(EColor::WHITE);
+	std::cin.get();
 
 	//초반 스토리 3
 	FRM->OpenFile(L"../story/intro3.txt");
-	FRM->PrintLineAll(Character::getInstance()->getName(), false);
+	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
+	std::cin.get();
 }
 
 #pragma endregion
