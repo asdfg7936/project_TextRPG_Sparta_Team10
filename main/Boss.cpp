@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include "FileReaderManager.h"
+#include "../Character/Character.h"
 
 Boss::Boss(int level)
 	:Monster(level,
@@ -30,7 +31,7 @@ void Boss::SoundEffect(float per)
 		// comment
 		std::cout << "===================" << std::endl;
 		FRM->OpenFile(L"../story/BossStart.txt");
-		FRM->PrintLineAll();
+		FRM->PrintLineAll(Character::getInstance()->getName());
 		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
@@ -41,7 +42,7 @@ void Boss::SoundEffect(float per)
 		// comment
 		std::cout << "===================" << std::endl;
 		FRM->OpenFile(L"../story/Boss50.txt");
-		FRM->PrintLineAll();
+		FRM->PrintLineAll(Character::getInstance()->getName());
 		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
@@ -52,7 +53,7 @@ void Boss::SoundEffect(float per)
 		// comment
 		std::cout << "===================" << std::endl;
 		FRM->OpenFile(L"../story/Boss20.txt");
-		FRM->PrintLineAll();
+		FRM->PrintLineAll(Character::getInstance()->getName());
 		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 
@@ -63,7 +64,7 @@ void Boss::SoundEffect(float per)
 		// comment
 		std::cout << "===================" << std::endl;
 		FRM->OpenFile(L"../story/BossDead.txt");
-		FRM->PrintLineAll();
+		FRM->PrintLineAll(Character::getInstance()->getName());
 		FRM->CloseFile();
 		std::cout << "===================" << std::endl;
 

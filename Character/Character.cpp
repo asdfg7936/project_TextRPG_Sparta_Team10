@@ -9,9 +9,9 @@ Character* Character::instance = nullptr;
 Character::Character(wstring name)
 {
 	this->name = name;
-	this->level = 1;
-	this->attack = 30;
-	this->health = 200;
+	this->level = 9;
+	this->attack = 3000;
+	this->health = 20000;
 	this->maxHealth = 200;
 	this->experience = 0;
 	this->experienceToNestLevel = 100;
@@ -20,13 +20,13 @@ Character::Character(wstring name)
 	Stuff* healingPotion = new Stuff();
 	healingPotion->Item = new HealthPotion();
 	healingPotion->ItemName = healingPotion->Item->getName();
-	healingPotion->ItemQuantity = 3;
+	healingPotion->ItemQuantity = 2;
 	this->inventory.push_back(healingPotion);
 
 	Stuff* strangePotion = new Stuff();
 	strangePotion->Item = new StrangePotion();
 	strangePotion->ItemName = strangePotion->Item->getName();
-	strangePotion->ItemQuantity = 3;
+	strangePotion->ItemQuantity = 1;
 	this->inventory.push_back(strangePotion);
 }
 
@@ -176,14 +176,15 @@ void Character::usePotion()
 void Character::showInventory()
 {
 	cout << "\n---------------------인벤토리---------------------" << endl;
-	cout << "보유 중인 아이템 목록" << endl;
+	cout << "보유 중인 아이템 목록\n" << endl;
 	cout << "골드 : " << this->gold << endl;
+	cout << endl;
 
 	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << i + 1 << "번 칸 : " << inventory[i]->ItemName << " - " 
+		cout << i + 1 << " : " << inventory[i]->ItemName << " - " 
 			
-			<< inventory[i]->ItemQuantity << "개 -" << endl;
+			<< inventory[i]->ItemQuantity << "개 -\n" << endl;
 	}
 	cout << "--------------------------------------------------\n" << endl;
 }

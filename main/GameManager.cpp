@@ -40,6 +40,7 @@ void GameManager::Progress()
 	// 게임종료 로직 수행
 	if (false == bPlayerAlive)
 	{
+		std::cout << std::endl;
 		FRM->OpenFile(L"../story/Dead.txt");
 		FRM->PrintLineAll(Character::getInstance()->getName());
 		FRM->CloseFile();
@@ -112,10 +113,12 @@ void GameManager::SelectStore()
 
 	// 상점을 들리게 된다면 -> 템 사는거 내가 선택해서 구매 (템 : 물약, 수상한 물약)
 	// 아이템 목록 출력
+	GameManager::setConsoleColor(EColor::GREEN);
 	store->showList();
+	GameManager::setConsoleColor(EColor::WHITE);
 	int storeSelect = 0;
 	std::cout << "1번 : 아이템 구매" << std::endl;
-	std::cout << "2번 : 아이템 판매" << std::endl;
+	std::cout << "\n2번 : 아이템 판매" << std::endl;
 	std::cout << "\n[ 다른 값을 입력하면 상점을 나갑니다. ]\n\n";
 	std::cout << "다음 행동을 선택하세요 : ";
 	std::cin >> storeSelect;
@@ -132,7 +135,9 @@ void GameManager::SelectStore()
 	}
 	else if (storeSelect == 2)
 	{
+		GameManager::setConsoleColor(EColor::GREEN);
 		player->showInventory();
+		GameManager::setConsoleColor(EColor::WHITE);
 		std::cout << "판매하고자 하는 아이템의 번호를 입력해주세요 : ";
 		int sellSelect = 0;
 		std::cin >> sellSelect;
@@ -153,7 +158,9 @@ void GameManager::SelectInventory()
 {
 	Character* player = Character::getInstance();
 
+	GameManager::setConsoleColor(EColor::GREEN);
 	player->showInventory();
+	GameManager::setConsoleColor(EColor::WHITE);
 }
 
 Monster* GameManager::SelectBattle()
@@ -177,7 +184,18 @@ Monster* GameManager::SelectBattle()
 		std::cin.get();
 
 		// 플레이어 물약 사용
+		GameManager::setConsoleColor(EColor::AQUA);
 		player->usePotion();
+		GameManager::setConsoleColor(EColor::WHITE);
+
+		// 보스
+		if (genMonster->mGetName() == "오크 족장")
+		{
+			std::cout << endl;
+			float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
+			static_cast<Boss*>(genMonster)->SoundEffect(per);
+			std::cout << endl;
+		}
 
 		//	플레이어가 몬스터 공격
 		genMonster->mTakeDamage(player->getAttack());
@@ -191,7 +209,6 @@ Monster* GameManager::SelectBattle()
 		{
 			float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
 			std::cout << "( Boss HP " << per << "% )\n\n";
-			static_cast<Boss*>(genMonster)->SoundEffect(per);
 		}
 		std::cin.get();
 
@@ -238,6 +255,7 @@ void GameManager::BattleReward(Monster* genMonster)
 		std::cin.get();
 
 		std::cout << "다음 보상을 획득했습니다." << std::endl;
+		GameManager::setConsoleColor(EColor::GREEN);
 		int rndGold = rand() % 11 + 10;
 		player->setGold(player->getGold() + rndGold);
 		std::cout << rndGold << " 골드 획득" << std::endl;
@@ -246,6 +264,7 @@ void GameManager::BattleReward(Monster* genMonster)
 			player->setExperience(player->getExperience() + genMonster->mGetExp());
 			std::cout << genMonster->mGetExp() << " 경험치 획득" << std::endl;
 		}
+		GameManager::setConsoleColor(EColor::WHITE);
 		std::cin.get();
 	}
 
@@ -253,7 +272,9 @@ void GameManager::BattleReward(Monster* genMonster)
 	if (player->getExperience() >= player->getExperienceToNextLevel()
 		&& player->getLevel() < 10)
 	{
+		GameManager::setConsoleColor(EColor::YELLOW);
 		player->levelUp();
+		GameManager::setConsoleColor(EColor::WHITE);
 	}
 }
 
@@ -298,7 +319,7 @@ Monster* GameManager::GenMonster(int playerLevel)
 			result = new StrongMonster(result);
 		}
 	}
-	else if (playerLevel < 9)
+	else if (playerLevel < 10)
 	{
 		// 오크, 트롤 (2,3)
 		int idx = rand() % 2 + 2;	// 0 ~ 1
@@ -349,7 +370,9 @@ void GameManager::Intro()
 	std::cout << "\n\n\n";
 
 	// 플레이어 레벨 2로 설정하고 시작
+	GameManager::setConsoleColor(EColor::YELLOW);
 	Character::getInstance()->levelUp();
+	GameManager::setConsoleColor(EColor::WHITE);
 
 	//초반 스토리 3
 	FRM->OpenFile(L"../story/intro3.txt");
