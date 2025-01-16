@@ -32,8 +32,10 @@ void FileReaderManager::ReadFile()
 
 			if (readFile.fail()) {
 				std::cerr << "An error occurred while reading the file!" << std::endl;
+				bEnd = true;
 			}
-			//else if (readFile.good()) {
+			//else if (readFile.good()) 
+			//{
 			//	std::cout << "The file stream is in good condition." << std::endl;
 			//}
 		}
@@ -54,8 +56,13 @@ bool FileReaderManager::OpenFile(std::wstring filePath)
 	return true;
 }
 
-void FileReaderManager::PrintLine(int idx, bool bTypeEffect)
+void FileReaderManager::PrintLine(int idx, std::wstring playerName, bool bTypeEffect)
 {
+	if (playerName != L"")
+	{
+		insertPlayerName(playerName);
+	}
+
 	if (bTypeEffect)
 	{
 		typingEffect(lineContainer[idx]);
@@ -67,8 +74,13 @@ void FileReaderManager::PrintLine(int idx, bool bTypeEffect)
 
 }
 
-void FileReaderManager::PrintLineAll(bool bTypeEffect)
+void FileReaderManager::PrintLineAll(std::wstring playerName, bool bTypeEffect)
 {
+	if (playerName != L"")
+	{
+		insertPlayerName(playerName);
+	}
+
 	for (int i = 0; i < lineContainer.size(); ++i)
 	{
 		if (bTypeEffect)
@@ -94,5 +106,22 @@ void FileReaderManager::typingEffect(const std::wstring& text, int delay)
 	for (wchar_t ch : text) {
 		std::wcout << ch << std::flush; // flush를 사용하여 즉각 출력
 		std::this_thread::sleep_for(std::chrono::milliseconds(delay)); // 딜레이
+	}
+}
+
+void FileReaderManager::insertPlayerName(std::wstring playerName)
+{
+	for (int i = 0; i < lineContainer.size(); i++)
+	{
+		char target = '#';
+		size_t pos = lineContainer[i].find(target);
+
+		while (pos != std::string::npos) {
+			if (pos != std::string::npos)
+			{
+				lineContainer[i].replace(pos, 1, playerName);
+			}
+			pos = lineContainer[i].find(target, pos + 1);
+		}
 	}
 }
