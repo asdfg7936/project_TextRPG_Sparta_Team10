@@ -24,7 +24,6 @@ Store::Store()
 
 	items.push_back(new HealthPotion());
 	items.push_back(new StrangePotion());
-
 }
 
 
@@ -33,7 +32,7 @@ void Store::buyStuff(int idx)
 	// 1번 : 체력 물약 , 2번 : 이상한 물약
 	Character* player = Character::getInstance();
 	int gold = player->getGold();
-	Stuff Item;
+	Stuff* Item;
 	
 	switch (idx-1)
 	{
@@ -42,12 +41,12 @@ void Store::buyStuff(int idx)
 		{
 			player->setGold(player->getGold() - 80);
 			Item = player->getItem(EItem::Heal);
-			Item.ItemQuantity += 1;
+			Item->ItemQuantity += 1;
 			std::cout << "체력 포션을 구매했습니다." << std::endl;
 		}
 		else
 		{
-			std::cout << "골드가 부족합니다!" << std::endl;
+			std::cout << "\n골드가 부족합니다!" << std::endl;
 		}
 		break;
 	case EItem::Strange:
@@ -55,7 +54,7 @@ void Store::buyStuff(int idx)
 		{
 			player->setGold(player->getGold() - 100);
 			Item = player->getItem(EItem::Strange);
-			Item.ItemQuantity += 1;
+			Item->ItemQuantity += 1;
 			std::cout << "체력 포션을 구매했습니다." << std::endl;
 		}
 		else
@@ -74,21 +73,21 @@ void Store::sellStuff(int idx)
 	// 1번 : 체력 물약 , 2번 : 이상한 물약
 	Character* player = Character::getInstance();
 	int gold = player->getGold();
-	Stuff Item;
+	Stuff* Item;
 
 	switch (idx-1)
 	{
 	case EItem::Heal:
 		player->setGold(player->getGold() + 48);
 		Item = player->getItem(EItem::Heal);
-		Item.ItemQuantity -= 1;
+		Item->ItemQuantity -= 1;
 		std::cout << "체력 포션을 판매했습니다." << std::endl;
 		std::cout << "골드가 48 증가했습니다." << std::endl;
 		break;
 	case EItem::Strange:
 		player->setGold(player->getGold() + 60);
 		Item = player->getItem(EItem::Strange);
-		Item.ItemQuantity -= 1;
+		Item->ItemQuantity -= 1;
 		std::cout << "수상한 포션을 판매했습니다." << std::endl;
 		std::cout << "골드가 60 증가했습니다." << std::endl;
 		break;
@@ -104,9 +103,9 @@ void Store::showList()
 	std::cout << "판매 목록" << std::endl;
 	for (int i = 0; i < items.size(); i++)
 	{
-		std::cout << i + 1 << " : " << items[i]->getName() << " 구매 가격 : " << items[i]->getPrice() << std::endl;
+		std::cout << i + 1 << " : " << items[i]->getName();
+		std::cout << "\n ///// 구매 가격: " << items[i]->getPrice() << " ///// 판매 가격: " << items[i]->getPrice()*0.6 << " /////\n" << std::endl;
 	}
-	std::cout << "아이템 판매 가격은 구매 가격의 60%입니다." << std::endl;
 	std::cout << "---------------------------------------------" << std::endl;
 	std::cout << std::endl;
 }

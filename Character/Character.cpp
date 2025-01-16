@@ -6,29 +6,31 @@
 
 Character* Character::instance = nullptr;
 
-Character::Character(string name)
+Character::Character(wstring name)
 {
 	this->name = name;
-	this->level = 1;
-	this->attack = 30;
-	this->health = 200;
+	this->level = 9;
+	this->attack = 3000;
+	this->health = 20000;
 	this->maxHealth = 200;
 	this->experience = 0;
 	this->experienceToNestLevel = 100;
 	this->gold = 0;
-	Stuff healingPotion;
-	Stuff strangePotion;
-	healingPotion.Item = new HealthPotion();
-	strangePotion.Item = new StrangePotion();
-	healingPotion.ItemName = healingPotion.Item->getName();
-	strangePotion.ItemName = strangePotion.Item->getName();
-	healingPotion.ItemQuantity = 3;
-	strangePotion.ItemQuantity = 3;
+
+	Stuff* healingPotion = new Stuff();
+	healingPotion->Item = new HealthPotion();
+	healingPotion->ItemName = healingPotion->Item->getName();
+	healingPotion->ItemQuantity = 2;
 	this->inventory.push_back(healingPotion);
+
+	Stuff* strangePotion = new Stuff();
+	strangePotion->Item = new StrangePotion();
+	strangePotion->ItemName = strangePotion->Item->getName();
+	strangePotion->ItemQuantity = 1;
 	this->inventory.push_back(strangePotion);
 }
 
-Character* Character::getInstance(string name)
+Character* Character::getInstance(wstring name)
 {
 	if (instance == nullptr)
 	{
@@ -40,13 +42,14 @@ Character* Character::getInstance(string name)
 
 void Character::displayStatus()
 {
-	cout << "------------------" << endl;
-	cout << "Status" << endl;
-	cout << "Level: " << level << endl;
-	cout << "Exp: " << experience << " / " << experienceToNestLevel << endl;
-	cout << "Health: " << health << " / " << maxHealth << endl;
-	cout << "Attack: " << attack << endl;
-	cout << "------------------" << endl;
+	cout << "\n---------------------" << endl;
+	cout << "[ Status ]" << endl;
+	wcout << "Name : " << name << endl;
+	cout << "Level : " << level << endl;
+	cout << "Exp : " << experience << " / " << experienceToNestLevel << endl;
+	cout << "Health : " << health << " / " << maxHealth << endl;
+	cout << "Attack : " << attack << endl;
+	cout << "---------------------\n" << endl;
 }
 void Character::levelUp()
 {
@@ -62,11 +65,11 @@ void Character::levelUp()
 		this->attack += level * 5;
 		this->experienceToNestLevel += experienceToNestLevel * 0.2;
 
-		cout << "------------------" << endl;
+		cout << "---------------------" << endl;
 		cout << "Level Up!" << endl;
 		cout << "최대 체력 "<< level * 20 << " 상승!" << endl;
 		cout << "공격력 " << level * 5 << " 상승!" << endl;
-		cout << "------------------" << endl;
+		cout << "---------------------" << endl;
 		std::cout << endl;
 	}
 	else
@@ -141,47 +144,49 @@ double Character::getExperienceToNextLevel() const
 {
 	return this->experienceToNestLevel;
 }
-string Character::getName() const
+
+wstring Character::getName() const
 {
 	return this->name;
 }
 
-Stuff& Character::getItem(int idx)
+Stuff* Character::getItem(int idx)
 {
 	return inventory[idx];
 }
 
 void Character::usePotion()
 {
-	if(this->health < this->health/50 && inventory[0].ItemQuantity > 0)
+	if(this->health < this->health/50 && inventory[0]->ItemQuantity > 0)
 	{
-		inventory[0].Item->use(instance);
-		inventory[0].ItemQuantity--;
+		inventory[0]->Item->use(instance);
+		inventory[0]->ItemQuantity--;
 	}
-	else if(inventory[1].ItemQuantity > 0)
+	else if(inventory[1]->ItemQuantity > 0)
 	{
 		int per = rand() % 3;
 		if (per == 2)
 		{
-			inventory[1].Item->use(instance);
-			inventory[1].ItemQuantity--;
+			inventory[1]->Item->use(instance);
+			inventory[1]->ItemQuantity--;
 		}
 	}
 }
 
 void Character::showInventory()
 {
-	cout << "-----------------------------------------" << endl;
-	cout << "보유 중인 아이템 목록" << endl;
+	cout << "\n---------------------인벤토리---------------------" << endl;
+	cout << "보유 중인 아이템 목록\n" << endl;
 	cout << "골드 : " << this->gold << endl;
+	cout << endl;
 
 	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << i + 1 << "번 칸 : " << inventory[i].ItemName << " - 보유량 : " 
+		cout << i + 1 << " : " << inventory[i]->ItemName << " - " 
 			
-			<< inventory[i].ItemQuantity << "개 -" << endl;
+			<< inventory[i]->ItemQuantity << "개 -\n" << endl;
 	}
-	cout << "-----------------------------------------" << endl;
+	cout << "--------------------------------------------------\n" << endl;
 }
 
 void Character::setExperience(double experience)

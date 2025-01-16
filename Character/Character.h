@@ -16,7 +16,8 @@ struct Stuff
 class Character 
 {
 private:
-    string name;
+    //string name;
+    wstring name;
     static Character* instance;
     int level;
     int health;
@@ -25,15 +26,15 @@ private:
     double experience;
     double experienceToNestLevel;
     int gold;
-    vector<Stuff> inventory;
+    vector<Stuff*> inventory;
 
-    Character(string name);
+    Character(wstring name);
 
     Character(const Character&) = delete;
     Character& operator = (const Character&) = delete;
 
 public:
-    static Character* getInstance(string name = "");
+    static Character* getInstance(wstring name = L"");
     void displayStatus();
     void levelUp();
     int getMaxhealth() const;
@@ -50,8 +51,9 @@ public:
     void setAttack(int attack);
     double getExperience() const;
     double getExperienceToNextLevel() const;
-    string getName() const;
-    Stuff& getItem(int idx);
+    //string getName() const;
+    wstring getName() const;
+    Stuff* getItem(int idx);
 
     // 물약사용
     void usePotion();
