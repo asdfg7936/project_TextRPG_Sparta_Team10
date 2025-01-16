@@ -43,11 +43,12 @@ Character* Character::getInstance(string name)
 void Character::displayStatus()
 {
 	cout << "\n------------------" << endl;
-	cout << "Status" << endl;
-	cout << "Level: " << level << endl;
-	cout << "Exp: " << experience << " / " << experienceToNestLevel << endl;
-	cout << "Health: " << health << " / " << maxHealth << endl;
-	cout << "Attack: " << attack << endl;
+	cout << "[ Status ]" << endl;
+	cout << "Name : " << name << endl;
+	cout << "Level : " << level << endl;
+	cout << "Exp : " << experience << " / " << experienceToNestLevel << endl;
+	cout << "Health : " << health << " / " << maxHealth << endl;
+	cout << "Attack : " << attack << endl;
 	cout << "------------------\n" << endl;
 }
 void Character::levelUp()
