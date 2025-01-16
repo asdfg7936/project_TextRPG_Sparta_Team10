@@ -66,20 +66,13 @@ bool GameManager::Update()
 		SelectInventory();
 		break;
 	case 4:	// 전투
-		genMonster = SelectBattle();
+		BattleReward(SelectBattle());
 		break;
 	case 9:	// 게임 종료
 		return SelectEndGame();
 	default:
 		__noop;
 	}
-
-	if (Select != 4)
-	{
-		genMonster = SelectBattle();
-	}
-
-	BattleReward(genMonster);
 
 	return player->IsAlive();
 }
@@ -131,7 +124,6 @@ void GameManager::SelectStore()
 	// 아이템 선택 및 구매
 	if (storeSelect == 1)
 	{
-		store->showList();
 		std::cout << "구매하고자 하는 아이템의 번호를 입력해주세요 : ";
 		int buySelect = 0;
 		std::cin >> buySelect;
@@ -140,7 +132,6 @@ void GameManager::SelectStore()
 	}
 	else if (storeSelect == 2)
 	{
-		store->showList();
 		player->showInventory();
 		std::cout << "판매하고자 하는 아이템의 번호를 입력해주세요 : ";
 		int sellSelect = 0;
