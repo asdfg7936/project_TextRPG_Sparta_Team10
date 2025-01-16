@@ -53,7 +53,8 @@ public:
 
 // Function
 public:
-	static void setConsoleColor(int color) {
+	static void setConsoleColor(int color) 
+	{
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
 		SetConsoleTextAttribute(hConsole, color);         // 색상 설정
 	}

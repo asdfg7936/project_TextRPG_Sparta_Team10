@@ -27,19 +27,13 @@ void FileReaderManager::ReadFile()
 			lineContainer.push_back(line);
 			
 			if (readFile.eof())
-			{
 				bEnd = true;
-				//std::cout << "Reached the end of the file." << std::endl;
-			}
 
-			if (readFile.fail()) {
+			if (readFile.fail()) 
+			{
 				std::cerr << "An error occurred while reading the file!" << std::endl;
 				bEnd = true;
 			}
-			//else if (readFile.good()) 
-			//{
-			//	std::cout << "The file stream is in good condition." << std::endl;
-			//}
 		}
 	}
 }
@@ -52,9 +46,7 @@ bool FileReaderManager::OpenFile(std::wstring filePath)
 		std::cout << "Failed to open file for reading!" << std::endl;
 		return false;
 	}
-
 	ReadFile();
-
 	return true;
 }
 
