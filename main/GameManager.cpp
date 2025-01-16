@@ -32,7 +32,9 @@ void GameManager::Progress()
 	//		1. 캐릭터 사망
 	//		2. 보스 처치 성공
 	bool bPlayerAlive = true;
-	while (bPlayerAlive)
+	// 플레이어가 살아있고, 보스가 죽지 않았으면 게임 진행
+	// 둘 중 하나라도 죽으면 게임 끝
+	while (bPlayerAlive && false == bBossDeath)
 	{
 		bPlayerAlive = Update();
 	}
@@ -173,6 +175,11 @@ Monster* GameManager::SelectBattle()
 	std::cout << "\n야생의 " << genMonster->mGetName() << "이(가) 출몰했습니다.\n";
 	GameManager::setConsoleColor(EColor::WHITE);
 
+	if (genMonster->mGetName() == "오크 족장")
+	{
+		static_cast<Boss*>(genMonster)->SoundEffect(EBossCondition::INTRO);
+	}
+
 	// 몬스터 스텟 출력
 	genMonster->mDisplayStatus();
 	std::cin.get();
@@ -188,29 +195,20 @@ Monster* GameManager::SelectBattle()
 		player->usePotion();
 		GameManager::setConsoleColor(EColor::WHITE);
 
-		// 보스
-		if (genMonster->mGetName() == "오크 족장")
-		{
-			std::cout << endl;
-			float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
-			static_cast<Boss*>(genMonster)->SoundEffect(per);
-			std::cout << endl;
-		}
-
 		//	플레이어가 몬스터 공격
 		genMonster->mTakeDamage(player->getAttack());
 		std::wcout << player->getName() << L"이(가) ";
 		std:cout << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
 		std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
 		std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
-
-		// 보스
-		if (genMonster->mGetName() == "오크 족장")
-		{
-			float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
-			std::cout << "( Boss HP " << per << "% )\n\n";
-		}
 		std::cin.get();
+
+		if (genMonster->mGetName() == "오크 족장"
+			&& genMonster->mGetHealth() == 0)
+		{
+			static_cast<Boss*>(genMonster)->SoundEffect(EBossCondition::DEATH);
+			return genMonster;
+		}
 
 		// 몬스터가 플레이어 공격
 		if (genMonster->mGetHealth() > 0)
@@ -221,6 +219,21 @@ Monster* GameManager::SelectBattle()
 			std::wcout << player->getName() << L"은(는) ";
 			std::cout << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
 			std::cout << "현재 체력 : " << player->getHealth() << " / " << player->getMaxhealth() << std::endl;
+		}
+
+		if (genMonster->mGetName() == "오크 족장")
+		{
+			Boss* boss = static_cast<Boss*>(genMonster);
+			float per = static_cast<float>(genMonster->mGetHealth()) / genMonster->mGetMaxHealth() * 100;
+
+			if (boss->GetHalfAlarm() && per <= 50)
+			{
+				static_cast<Boss*>(genMonster)->SoundEffect(EBossCondition::HALF);
+			}
+			else if (boss->GetAlmostAlarm() && per <= 20)
+			{
+				static_cast<Boss*>(genMonster)->SoundEffect(EBossCondition::ALMOST);
+			}
 		}
 	}
 
@@ -249,6 +262,11 @@ void GameManager::BattleReward(Monster* genMonster)
 		else if (genMonster->mGetName() == "트롤")
 		{
 			trollCount++;
+		}
+		else if (genMonster->mGetName() == "오크 족장")
+		{
+			GM->SetGameEndCondition(true);
+			return;
 		}
 
 		std::cout << genMonster->mGetName() << "이(가) 죽었습니다." << std::endl;
@@ -352,6 +370,7 @@ void GameManager::SetPlayerCharacter()
 	std::wstring playerName = L"";
 	std::cout << "플레이어의 이름을 입력하세요 : ";
 	std::wcin >> playerName;
+	//std::wcout << playerName;
 	Character::getInstance(playerName);
 }
 
@@ -361,23 +380,25 @@ void GameManager::Intro()
 	FRM->OpenFile(L"../story/intro.txt");
 	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
+	std::cin.get();
 
 	// 초반 스토리 2
 	FRM->OpenFile(L"../story/intro2.txt");
 	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
-
-	std::cout << "\n\n\n";
+	std::cin.get();
 
 	// 플레이어 레벨 2로 설정하고 시작
 	GameManager::setConsoleColor(EColor::YELLOW);
 	Character::getInstance()->levelUp();
 	GameManager::setConsoleColor(EColor::WHITE);
+	std::cin.get();
 
 	//초반 스토리 3
 	FRM->OpenFile(L"../story/intro3.txt");
 	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
+	std::cin.get();
 }
 
 #pragma endregion

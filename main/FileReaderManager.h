@@ -43,7 +43,7 @@ public:
 		{
 			delete instance;
 			instance = nullptr;
-			std::cout << "[ Delete File Reader Manager ]" << std::endl;
+			//std::cout << "[ Delete File Reader Manager ]" << std::endl;
 		}
 	}
 
