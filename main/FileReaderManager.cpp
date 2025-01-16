@@ -3,6 +3,8 @@
 #include <thread> // for std::this_thread::sleep_for
 #include <chrono> // for std::chrono::milliseconds
 
+#include <windows.h>
+
 FileReaderManager* FileReaderManager::instance = nullptr;
 
 /// <summary>
@@ -113,7 +115,7 @@ void FileReaderManager::insertPlayerName(std::wstring playerName)
 {
 	for (int i = 0; i < lineContainer.size(); i++)
 	{
-		char target = '#';
+		wchar_t target = L'#';
 		size_t pos = lineContainer[i].find(target);
 
 		while (pos != std::string::npos) {

@@ -10,9 +10,9 @@ Character::Character(wstring name)
 {
 	this->name = name;
 	this->level = 9;
-	this->attack = 3000;
-	this->health = 20000;
-	this->maxHealth = 200;
+	this->attack = 400;
+	this->health = 200;
+	this->maxHealth = 20000;
 	this->experience = 0;
 	this->experienceToNestLevel = 100;
 	this->gold = 0;
