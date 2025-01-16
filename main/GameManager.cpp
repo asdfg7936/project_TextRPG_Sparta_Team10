@@ -41,7 +41,7 @@ void GameManager::Progress()
 	if (false == bPlayerAlive)
 	{
 		FRM->OpenFile(L"../story/Dead.txt");
-		FRM->PrintLineAll();
+		FRM->PrintLineAll(Character::getInstance()->getName());
 		FRM->CloseFile();
 	}
 }
@@ -190,7 +190,8 @@ Monster* GameManager::SelectBattle()
 
 		//	플레이어가 몬스터 공격
 		genMonster->mTakeDamage(player->getAttack());
-		std::cout << player->getName() << "이(가) " << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
+		std::wcout << player->getName() << L"이(가) ";
+		std:cout << genMonster->mGetName() << "을(를) 공격했습니다." << std::endl;
 		std::cout << genMonster->mGetName() << "은(는) " << player->getAttack() << "만큼 대미지를 입었습니다." << std::endl;
 		std::cout << genMonster->mGetName() << "의 현재 체력 : " << genMonster->mGetHealth() << " / " << genMonster->mGetMaxHealth() << std::endl;
 
@@ -207,8 +208,10 @@ Monster* GameManager::SelectBattle()
 		if (genMonster->mGetHealth() > 0)
 		{
 			player->TakeDamage(genMonster->mGetAttack());
-			std::cout << genMonster->mGetName() << "이(가) " << player->getName() << "을(를) 공격했습니다." << std::endl;
-			std::cout << player->getName() << "은(는) " << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
+			std::cout << genMonster->mGetName() << "이(가) ";
+			std::wcout << player->getName() << L"을(를) 공격했습니다." << std::endl;
+			std::wcout << player->getName() << L"은(는) ";
+			std::cout << genMonster->mGetAttack() << "만큼 대미지를 입었습니다." << std::endl;
 			std::cout << "현재 체력 : " << player->getHealth() << " / " << player->getMaxhealth() << std::endl;
 		}
 	}
@@ -334,9 +337,9 @@ void GameManager::displayKillCounts() const
 
 void GameManager::SetPlayerCharacter()
 {
-	std::string playerName = "";
+	std::wstring playerName = L"";
 	std::cout << "플레이어의 이름을 입력하세요 : ";
-	std::cin >> playerName;
+	std::wcin >> playerName;
 	Character::getInstance(playerName);
 }
 
@@ -344,12 +347,12 @@ void GameManager::Intro()
 {
 	// 초반 스토리 출력
 	FRM->OpenFile(L"../story/intro.txt");
-	FRM->PrintLineAll(false);
+	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
 
 	// 초반 스토리 2
 	FRM->OpenFile(L"../story/intro2.txt");
-	FRM->PrintLineAll(false);
+	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
 
 	std::cout << "\n\n\n";
@@ -359,7 +362,7 @@ void GameManager::Intro()
 
 	//초반 스토리 3
 	FRM->OpenFile(L"../story/intro3.txt");
-	FRM->PrintLineAll(false);
+	FRM->PrintLineAll(Character::getInstance()->getName());
 	FRM->CloseFile();
 }
 

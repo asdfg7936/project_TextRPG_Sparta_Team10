@@ -6,7 +6,7 @@
 
 Character* Character::instance = nullptr;
 
-Character::Character(string name)
+Character::Character(wstring name)
 {
 	this->name = name;
 	this->level = 1;
@@ -30,7 +30,7 @@ Character::Character(string name)
 	this->inventory.push_back(strangePotion);
 }
 
-Character* Character::getInstance(string name)
+Character* Character::getInstance(wstring name)
 {
 	if (instance == nullptr)
 	{
@@ -44,7 +44,7 @@ void Character::displayStatus()
 {
 	cout << "\n------------------" << endl;
 	cout << "[ Status ]" << endl;
-	cout << "Name : " << name << endl;
+	wcout << "Name : " << name << endl;
 	cout << "Level : " << level << endl;
 	cout << "Exp : " << experience << " / " << experienceToNestLevel << endl;
 	cout << "Health : " << health << " / " << maxHealth << endl;
@@ -144,7 +144,8 @@ double Character::getExperienceToNextLevel() const
 {
 	return this->experienceToNestLevel;
 }
-string Character::getName() const
+
+wstring Character::getName() const
 {
 	return this->name;
 }
