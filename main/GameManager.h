@@ -3,6 +3,8 @@
 #include <fstream>
 #include <windows.h> // Windows API 사용
 
+#define GM GameManager::GetInstance()
+
 class Monster;
 
 class GameManager
@@ -16,7 +18,7 @@ private:
 
 	GameManager()
 	{
-		std::cout << "[ Create Game Manager ]" << std::endl;
+		//std::cout << "[ Create Game Manager ]" << std::endl;
 	}
 	~GameManager() {}
 
@@ -26,7 +28,7 @@ private:
 public:
 	static GameManager* GetInstance() 
 	{
-		if (nullptr == instance)
+ 		if (nullptr == instance)
 		{
 			instance = new GameManager();
 		}
@@ -38,7 +40,7 @@ public:
 		{
 			delete instance;
 			instance = nullptr;
-			std::cout << "[ Delete Game Manager ]" << std::endl;
+			//std::cout << "[ Delete Game Manager ]" << std::endl;
 		}
 	}
 
@@ -55,8 +57,11 @@ public:
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // 콘솔 핸들 가져오기
 		SetConsoleTextAttribute(hConsole, color);         // 색상 설정
 	}
+	void SetGameEndCondition(bool flag) { bBossDeath = flag; }
 
 private:
+	bool bBossDeath = false;
+
 	Monster* GenMonster(int playerLevel);
 	void displayKillCounts() const;	// 몬스터 처치 기록
 
